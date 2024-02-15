@@ -23,7 +23,8 @@ public class Spiderweb{
         this.lista = new lines(strands, radio);
         this.angulo = lista.getCant();
         this.lis = lista.getlista();
-        this.listaLineas = new ArrayList<Linea>();    
+        this.listaLineas = new ArrayList<Linea>();   
+        this.bridges = new ArrayList<Linea>();
         setCordenateStrands();
         this.arañita = new Spider();
         arañita.moveTo(365,365);
@@ -61,10 +62,10 @@ public class Spiderweb{
         double posy1 = Math.round((distance * Math.sin(Math.toRadians(angleFirstStrand))));
         double posx2 = Math.round((distance * Math.cos(Math.toRadians(angleSecondStrand))) * 100.0) / 100.0;
         double posy2 = Math.round((distance * Math.sin(Math.toRadians(angleSecondStrand))) * 100.0) / 100.0;
-        Linea bridge = new Linea((float)posx1,(float)posy1,(float)posx2,(float)posy2);
+        Linea bridge = new Linea(400+(float)posx1,400-(float)posy1,400+(float)posx2,400-(float)posy2);
         bridge.changeColor(color);
         bridge.makeVisible();
-        System.out.println(bridge.getX1());
+        bridges.add(bridge);
     }
     
     /**

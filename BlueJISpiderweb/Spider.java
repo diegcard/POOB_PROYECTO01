@@ -45,7 +45,7 @@ public class Spider
         reorPatasDelanteras();
         reorPatasTraseras();
         cuerpo.changeColor("red");
-        cabeza.changeColor("red");
+        cabeza.changeColor("blue");
         reordenarCabeza();
     }
     
