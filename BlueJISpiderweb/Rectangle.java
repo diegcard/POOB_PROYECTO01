@@ -172,7 +172,7 @@ public class Rectangle{
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.draw(this, color,
-                new java.awt.Rectangle(xPosition, yPosition, 
+                new java.awt.Rectangle(600, 400, 
                                        width, height));
             canvas.wait(10);
         }

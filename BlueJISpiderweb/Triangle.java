@@ -195,27 +195,10 @@ public class Triangle{
     private void draw(){
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
-            if(rotacion ==0){
-                int[] xpoints = { xPosition, xPosition + (width/2), xPosition - (width/2) };
-                int[] ypoints = { yPosition, yPosition + height, yPosition + height };
-                canvas.draw(this, color, new Polygon(xpoints, ypoints, 3));
-                canvas.wait(10);                
-            }else if(rotacion ==1){
-                int[] xpoints = { xPosition, xPosition + height, xPosition };
-                int[] ypoints = { yPosition, yPosition + (width/2), yPosition + width };
-                canvas.draw(this, color, new Polygon(xpoints, ypoints, 3));
-                canvas.wait(10);
-            }else if(rotacion ==2){
-                int[] xpoints = { xPosition - (width/2), xPosition + (width/2), xPosition };
-                int[] ypoints = { yPosition, yPosition, yPosition + height };
-                canvas.draw(this, color, new Polygon(xpoints, ypoints, 3));
-                canvas.wait(10);
-            }else if(rotacion ==3){
-                int[] xpoints = { xPosition, xPosition - height, xPosition };
-                int[] ypoints = { yPosition, yPosition + (width/2), yPosition + width };
-                canvas.draw(this, color, new Polygon(xpoints, ypoints, 3));
-                canvas.wait(10);
-            }
+            int[] xpoints = { xPosition, xPosition + (width/2) };
+            int[] ypoints = { yPosition, yPosition + height};
+            canvas.draw(this, color, new Polygon(xpoints, ypoints, 2));
+            canvas.wait(10);
         }
     }
 
