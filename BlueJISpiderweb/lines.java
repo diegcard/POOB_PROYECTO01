@@ -27,15 +27,21 @@ class Pair<A, B> {
 
 public class lines{
     private List<Pair<Double, Double>> lista;
+    private double cant;
+    
     public lines(int cantidad, int radio){
         this.lista = new ArrayList<>();
         final double anguloTotal = 360;
         double ange = 0;
-        double cant = anguloTotal / cantidad;
+        this.cant = anguloTotal / cantidad;
         while (ange < anguloTotal){
             lista.add(new Pair<>(getPosXPlane(radio, ange), getPosYPlane(radio, ange)));
             ange+=cant;
         }
+    }
+    
+    public double getCant(){
+        return cant;
     }
     
     public List<Pair<Double, Double>> getlista(){

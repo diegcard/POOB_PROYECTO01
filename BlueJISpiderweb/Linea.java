@@ -11,20 +11,45 @@ import javax.swing.JOptionPane;
 public class Linea{
     private String color;
     private boolean isVisible;
-    private float x1 = 400; //Posicion Inicial
+    private float x1;
     private float x2;
-    private float y1 = 400; //Posicion Inicial
+    private float y1;
     private float y2;
     /**
-     * Create a new triangle at default position with default color.
+     * Create a new Line with a static start position
      */
     public Linea(float x2, float y2){
         color = "black";
         isVisible = false;
+        this.x1 = 400; //initial value
+        this.y1 = 400; //initial value
         this.x2 = x1+x2;
         this.y2 = y1-y2;
     }
     
+    /**
+     * Create a Line
+     */
+    public Linea(float x1, float y1,float x2, float y2){
+        color = "black";
+        isVisible = false;
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+    }
+    
+    /**
+     * news points
+     */
+    public void newPoints(float newx1, float newy1,float newx2, float newy2){
+        erase();
+        this.x1 = newx1;
+        this.y1 = newy1;
+        this.x2 = newx2;
+        this.y2 = newy2;
+        draw();
+    }
     public void changePositionInitial(float x1, float y1){
         if(this.x1 == x1 || this.y1 == y1){
             JOptionPane.showMessageDialog(null, "No se puede ingresar la misma coordenada de x y y ");
@@ -85,7 +110,25 @@ public class Linea{
         erase();
         isVisible = false;
     }
-        
+    
+    public void changeColor(String newcolor){
+        color = newcolor;
+    }
+    
+    public void moveHorizontal( int distancia){
+        erase();
+        x1 += distancia;
+        x2 += distancia;
+        draw();
+    }
+    
+    public void moveVertical( int distancia){
+        erase();
+        y1 += distancia;
+        y2 += distancia;
+        draw();
+    }
+    
     /*
      * Draw the line with current specifications on screen.
      */

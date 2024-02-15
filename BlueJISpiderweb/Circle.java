@@ -142,7 +142,7 @@ public class Circle{
             draw();
         }
     }
-
+    
     /**
      * Slowly move the circle vertically
      * @param distance the desired distance in pixels

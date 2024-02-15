@@ -1,10 +1,10 @@
 import java.util.List;
 import java.util.ArrayList;
 /**
- * Write a description of class Spiderweb here.
+ * Aqui se hará el simulador del Spiderweb
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Diego Cardenas y Sebastian Cardona 
+ * @version 1.0
  */
 public class Spiderweb{
     private int strands;
@@ -12,15 +12,21 @@ public class Spiderweb{
     private lines lista;
     private ArrayList<Linea> listaLineas;
     private List<Pair<Double, Double>> lis;
+    private Spider arañita;
+    private double angulo;
+    private ArrayList<Linea> bridges;
     
     /**
      * 
      */
     public Spiderweb(int strands, int radio){
         this.lista = new lines(strands, radio);
+        this.angulo = lista.getCant();
         this.lis = lista.getlista();
         this.listaLineas = new ArrayList<Linea>();    
         setCordenateStrands();
+        this.arañita = new Spider();
+        arañita.moveTo(365,365);
     }
     
     private void setCordenateStrands(){
@@ -35,6 +41,7 @@ public class Spiderweb{
     public void makeVisible(){
         for(Linea lineasValor: listaLineas){
             lineasValor.makeVisible();
+            arañita.makeVisible();
         }
     }
     
@@ -47,10 +54,17 @@ public class Spiderweb{
     /**
      * 
      */
-    private void addBridge(String color, int distance, int firstStrand){
-        if(radio == 4){
-            System.out.println("Algo");
-        }
+    public void addBridge(String color, int distance, int firstStrand){
+        double angleFirstStrand = (firstStrand-1)*angulo;
+        double angleSecondStrand = (firstStrand)*angulo;
+        double posx1 = Math.round((distance * Math.cos(Math.toRadians(angleFirstStrand))));
+        double posy1 = Math.round((distance * Math.sin(Math.toRadians(angleFirstStrand))));
+        double posx2 = Math.round((distance * Math.cos(Math.toRadians(angleSecondStrand))) * 100.0) / 100.0;
+        double posy2 = Math.round((distance * Math.sin(Math.toRadians(angleSecondStrand))) * 100.0) / 100.0;
+        Linea bridge = new Linea((float)posx1,(float)posy1,(float)posx2,(float)posy2);
+        bridge.changeColor(color);
+        bridge.makeVisible();
+        System.out.println(bridge.getX1());
     }
     
     /**
