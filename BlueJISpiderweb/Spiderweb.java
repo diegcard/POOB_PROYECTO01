@@ -48,7 +48,9 @@ public class Spiderweb{
      * 
      */
     private void addBridge(String color, int distance, int firstStrand){
-    
+        if(radio == 4){
+            System.out.println("Algo");
+        }
     }
     
     /**
