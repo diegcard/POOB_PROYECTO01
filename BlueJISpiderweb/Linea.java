@@ -21,8 +21,8 @@ public class Linea{
     public Linea(float x2, float y2){
         color = "black";
         isVisible = false;
-        this.x1 = 400; //initial value
-        this.y1 = 400; //initial value
+        this.x1 = Spiderweb.getPoscenterImage()[0]; //initial value
+        this.y1 = Spiderweb.getPoscenterImage()[1]; //initial value
         this.x2 = x1+x2;
         this.y2 = y1-y2;
     }

@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
  * @version 1.0
  */
 public class Spiderweb{
+    private boolean isVisible;
     private int strands;
     private int radio;
     private Linescoordinates lista;
@@ -16,6 +17,8 @@ public class Spiderweb{
     private Spider arañita;
     private double angulo;
     private ArrayList<Linea> bridges;
+    private static final int centroImagenX = 500;
+    private static final int centroImagenY = 400;
     
     /**
      * Constructor de la clase Spiderweb.
@@ -31,9 +34,11 @@ public class Spiderweb{
         this.lis = lista.getlista();
         this.listaLineas = new ArrayList<Linea>();   
         this.bridges = new ArrayList<Linea>();
+        this.radio = radio;
+        this.strands = strands;
         setCordenateStrands();
         this.arañita = new Spider();
-        arañita.moveTo(365,365);
+        arañita.moveTo(Spiderweb.getPoscenterImage()[0]-35,Spiderweb.getPoscenterImage()[1]-35);
     }
 
     /**
@@ -56,9 +61,15 @@ public class Spiderweb{
      * Si la lista de líneas está vacía, no se realiza ninguna acción.
      */
     public void makeVisible(){
-        for(Linea lineasValor: listaLineas){
-            lineasValor.makeVisible();
+        if(!isVisible){
+            for(Linea lineasValor: listaLineas){
+                lineasValor.makeVisible();
+            }
             arañita.makeVisible();
+            for(Linea bridge: bridges){
+                bridge.makeVisible();
+            }
+            isVisible = true;
         }
     }
     
@@ -67,8 +78,15 @@ public class Spiderweb{
      * Si la lista de líneas está vacía, no se realiza ninguna acción.
      */
     public void makeInvisible(){
-        for(Linea lineasValor: listaLineas){
-            lineasValor.makeInvisible();
+        if(isVisible){
+            for(Linea lineasValor: listaLineas){
+                lineasValor.makeInvisible();
+            }
+            arañita.makeInvisible();
+            for(Linea bridge: bridges){
+                bridge.makeInvisible();
+            }
+            isVisible = false;
         }
     }
     
@@ -90,18 +108,23 @@ public class Spiderweb{
             double posy1 = Math.round((distance * Math.sin(Math.toRadians(angleFirstStrand))));
             double posx2 = Math.round((distance * Math.cos(Math.toRadians(angleSecondStrand))) * 100.0) / 100.0;
             double posy2 = Math.round((distance * Math.sin(Math.toRadians(angleSecondStrand))) * 100.0) / 100.0;
-            Linea bridge = new Linea(400+(float)posx1,400-(float)posy1,400+(float)posx2,400-(float)posy2);
+            Linea bridge = new Linea(centroImagenX+(float)posx1,centroImagenY-(float)posy1,centroImagenX+(float)posx2,centroImagenY-(float)posy2);
             bridge.changeColor(color);
             bridge.makeVisible();
             bridges.add(bridge);
         }
     }
     
+    public static int[] getPoscenterImage(){
+        int[] listaPoscionesCentroimagen = {centroImagenX, centroImagenY};
+        return listaPoscionesCentroimagen;
+    }
+    
     /**
      * 
      */
-    private void relocateBridge(String color, int distance){
-    
+    private void relocateBridge(String color, int distance, int initStrand, int finalStrand){
+        
     }
     
     /**
@@ -110,13 +133,13 @@ public class Spiderweb{
      * @param color El color del puente que se desea eliminar.
      * @param cod_Bridge El código del puente que se desea eliminar.
      */
-    private void delBridge(String color, int cod_Bridge){
+    public void delBridge(int cod_Bridge){
         if(cod_Bridge > bridges.size()){
             JOptionPane.showMessageDialog(null, "No se puede eliminar un puente que no existe");
         }else{
-            Linea bridge = bridges.get(cod_Bridge);
+            Linea bridge = bridges.get(cod_Bridge-1);
             bridge.makeInvisible();
-            bridges.remove(cod_Bridge);
+            bridges.remove(cod_Bridge-1);
         }
     }
     

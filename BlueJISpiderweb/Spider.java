@@ -93,6 +93,7 @@ public class Spider
         cabeza.moveHorizontal(cuerpo.getxPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/2-cabeza.getxPosition());
         cabeza.moveVertical(cuerpo.getyPosition()+cuerpo.getDiameter()-cabeza.getDiameter()/2-cabeza.getyPosition());
     }
+    
     private void movePatasTraseras(int x, int y){
         pata5.moveHorizontal(x);
         pata5.moveVertical(y);
@@ -156,7 +157,6 @@ public class Spider
         pata81.makeVisible();
         cuerpo.makeVisible();
         cabeza.makeVisible();
-
     }  
     
         /**
@@ -191,7 +191,7 @@ public class Spider
         cuerpo.makeVisible();
     }
  
-        private void reorPatasDelanteras1(){
+    private void reorPatasDelanteras1(){
         pata1.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
         pata2.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
