@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import javax.swing.JOptionPane;
 /**
- * A triangle that can be manipulated and that draws itself on a canvas.
+ * Una linea
  * 
  * @author  Michael Kolling and David J. Barnes
  * @version 1.0  (15 July 2000)
@@ -28,7 +28,12 @@ public class Linea{
     }
     
     /**
-     * Create a Line
+     * Constructor de la clase Linea que crea una línea con las coordenadas dadas.
+     * 
+     * @param x1 La coordenada x del primer extremo de la línea.
+     * @param y1 La coordenada y del primer extremo de la línea.
+     * @param x2 La coordenada x del segundo extremo de la línea.
+     * @param y2 La coordenada y del segundo extremo de la línea.
      */
     public Linea(float x1, float y1,float x2, float y2){
         color = "black";
@@ -40,7 +45,13 @@ public class Linea{
     }
     
     /**
-     * news points
+     * Actualiza las coordenadas de los puntos extremos de la línea con las nuevas coordenadas especificadas,
+     * borrando la línea actual y dibujando una nueva línea con las coordenadas actualizadas.
+     *
+     * @param newx1 La nueva coordenada x del primer extremo de la línea.
+     * @param newy1 La nueva coordenada y del primer extremo de la línea.
+     * @param newx2 La nueva coordenada x del segundo extremo de la línea.
+     * @param newy2 La nueva coordenada y del segundo extremo de la línea.
      */
     public void newPoints(float newx1, float newy1,float newx2, float newy2){
         erase();
@@ -50,6 +61,14 @@ public class Linea{
         this.y2 = newy2;
         draw();
     }
+    
+    /**
+     * Cambia la posición inicial de la línea a las coordenadas especificadas.
+     *
+     * @param x1 La nueva coordenada x del primer extremo de la línea.
+     * @param y1 La nueva coordenada y del primer extremo de la línea.
+     * @throws IllegalArgumentException Si las nuevas coordenadas son iguales a las coordenadas actuales del primer extremo de la línea.
+     */
     public void changePositionInitial(float x1, float y1){
         if(this.x1 == x1 || this.y1 == y1){
             JOptionPane.showMessageDialog(null, "No se puede ingresar la misma coordenada de x y y ");
@@ -113,6 +132,7 @@ public class Linea{
     
     public void changeColor(String newcolor){
         color = newcolor;
+        draw();
     }
     
     public void moveHorizontal( int distancia){
@@ -129,9 +149,9 @@ public class Linea{
         draw();
     }
     
-    /*
+    /**
      * Draw the line with current specifications on screen.
-     */
+     **/
     private void draw(){
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
@@ -141,9 +161,9 @@ public class Linea{
         }
     }
     
-    /*
+    /**
      * Erase the line on screen.
-     */
+     **/
     private void erase(){
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();

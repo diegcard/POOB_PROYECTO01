@@ -25,11 +25,11 @@ class Pair<A, B> {
     }
 }
 
-public class lines{
+public class Linescoordinates{
     private List<Pair<Double, Double>> lista;
     private double cant;
     
-    public lines(int cantidad, int radio){
+    public Linescoordinates(int cantidad, int radio){
         this.lista = new ArrayList<>();
         final double anguloTotal = 360;
         double ange = 0;

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Linea
-comment0.text=\r\n\ A\ triangle\ that\ can\ be\ manipulated\ and\ that\ draws\ itself\ on\ a\ canvas.\r\n\ \r\n\ @author\ \ Michael\ Kolling\ and\ David\ J.\ Barnes\r\n\ @version\ 1.0\ \ (15\ July\ 2000)\r\n
+comment0.text=\r\n\ Una\ linea\r\n\ \r\n\ @author\ \ Michael\ Kolling\ and\ David\ J.\ Barnes\r\n\ @version\ 1.0\ \ (15\ July\ 2000)\r\n
 comment1.params=x2\ y2
 comment1.target=Linea(float,\ float)
 comment1.text=\r\n\ Create\ a\ new\ Line\ with\ a\ static\ start\ position\r\n
@@ -21,12 +21,13 @@ comment15.target=void\ erase()
 comment15.text=\r\n\ Erase\ the\ line\ on\ screen.\r\n
 comment2.params=x1\ y1\ x2\ y2
 comment2.target=Linea(float,\ float,\ float,\ float)
-comment2.text=\r\n\ Create\ a\ Line\r\n
+comment2.text=\r\n\ Constructor\ de\ la\ clase\ Linea\ que\ crea\ una\ l\u00EDnea\ con\ las\ coordenadas\ dadas.\r\n\ \r\n\ @param\ x1\ La\ coordenada\ x\ del\ primer\ extremo\ de\ la\ l\u00EDnea.\r\n\ @param\ y1\ La\ coordenada\ y\ del\ primer\ extremo\ de\ la\ l\u00EDnea.\r\n\ @param\ x2\ La\ coordenada\ x\ del\ segundo\ extremo\ de\ la\ l\u00EDnea.\r\n\ @param\ y2\ La\ coordenada\ y\ del\ segundo\ extremo\ de\ la\ l\u00EDnea.\r\n
 comment3.params=newx1\ newy1\ newx2\ newy2
 comment3.target=void\ newPoints(float,\ float,\ float,\ float)
-comment3.text=\r\n\ news\ points\r\n
+comment3.text=\r\n\ Actualiza\ las\ coordenadas\ de\ los\ puntos\ extremos\ de\ la\ l\u00EDnea\ con\ las\ nuevas\ coordenadas\ especificadas,\r\n\ borrando\ la\ l\u00EDnea\ actual\ y\ dibujando\ una\ nueva\ l\u00EDnea\ con\ las\ coordenadas\ actualizadas.\r\n\r\n\ @param\ newx1\ La\ nueva\ coordenada\ x\ del\ primer\ extremo\ de\ la\ l\u00EDnea.\r\n\ @param\ newy1\ La\ nueva\ coordenada\ y\ del\ primer\ extremo\ de\ la\ l\u00EDnea.\r\n\ @param\ newx2\ La\ nueva\ coordenada\ x\ del\ segundo\ extremo\ de\ la\ l\u00EDnea.\r\n\ @param\ newy2\ La\ nueva\ coordenada\ y\ del\ segundo\ extremo\ de\ la\ l\u00EDnea.\r\n
 comment4.params=x1\ y1
 comment4.target=void\ changePositionInitial(float,\ float)
+comment4.text=\r\n\ Cambia\ la\ posici\u00F3n\ inicial\ de\ la\ l\u00EDnea\ a\ las\ coordenadas\ especificadas.\r\n\r\n\ @param\ x1\ La\ nueva\ coordenada\ x\ del\ primer\ extremo\ de\ la\ l\u00EDnea.\r\n\ @param\ y1\ La\ nueva\ coordenada\ y\ del\ primer\ extremo\ de\ la\ l\u00EDnea.\r\n\ @throws\ IllegalArgumentException\ Si\ las\ nuevas\ coordenadas\ son\ iguales\ a\ las\ coordenadas\ actuales\ del\ primer\ extremo\ de\ la\ l\u00EDnea.\r\n
 comment5.params=
 comment5.target=float\ getX1()
 comment5.text=\r\n\ Devuelve\ el\ valor\ de\ la\ coordenada\ x1.\r\n\ \r\n\ @return\ el\ valor\ de\ la\ coordenada\ x1\r\n
