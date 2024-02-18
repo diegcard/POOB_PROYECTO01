@@ -15,6 +15,8 @@ public class Linea{
     private float x2;
     private float y1;
     private float y2;
+    private int initStrand;
+    
     /**
      * Create a new Line with a static start position
      */
@@ -170,5 +172,20 @@ public class Linea{
             canvas.erase(this);
         }
     }
-
+    
+    /**
+     * if the Line is a Bridge, we will get the initStrand
+     * @ return the initStrand
+     */
+    public int getInitStrand(){
+        return initStrand;
+    }
+    
+    /**
+     * if the Line is a Bridge, we will save the initStrand
+     */
+    public void setInitStrand(int newInitStrand){
+       this.initStrand = newInitStrand;
+    }
+    
 }

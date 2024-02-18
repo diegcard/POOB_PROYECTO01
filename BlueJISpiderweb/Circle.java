@@ -17,6 +17,7 @@ public class Circle{
     private int yPosition;
     private String color;
     private boolean isVisible;
+    private int Strand;
     
 
     public Circle(){
@@ -28,12 +29,27 @@ public class Circle{
     }
 
     public Circle(int xPos, int yPos){
-        diameter = 100;
+        diameter = 10;
         xPosition = xPos;
         yPosition = yPos;
         color = "black";
         isVisible = false;
     }    
+    
+    /**
+     * if a circle is a spot to sleep, we are gonna save the Strand where the spot is
+     */
+    public void setStrand(int newStrand){
+        this.Strand = newStrand;
+    }
+    
+    /**
+     * return the strand where the spot is
+     * @return the strand
+     */
+    public int getStrand(){
+        return Strand;
+    }
     
     public int getxPosition(){
         return xPosition;

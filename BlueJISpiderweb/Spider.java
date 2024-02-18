@@ -22,7 +22,7 @@ public class Spider
     private Linea pata7;
     private Linea pata8;
     private Linea pata71;
-    private Linea pata81;
+    private Linea pata81;   
 
     
     /**

@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.util.HashMap;
 /**
  * Aqui se hará el simulador del Spiderweb
  * 
@@ -14,11 +15,15 @@ public class Spiderweb{
     private Linescoordinates lista;
     private ArrayList<Linea> listaLineas;
     private List<Pair<Double, Double>> lis;
-    private Spider arañita;
+    private Spider spider;
     private double angulo;
-    private ArrayList<Linea> bridges;
+    private HashMap<String,ArrayList<Linea>> bridges;
     private static final int centroImagenX = 500;
     private static final int centroImagenY = 400;
+    private boolean SpiderSit;
+    private HashMap<String,ArrayList<Circle>> spots;
+    private Triangle avisador = new Triangle(20,20);
+    private boolean isOk = true;
     
     /**
      * Constructor de la clase Spiderweb.
@@ -33,12 +38,14 @@ public class Spiderweb{
         this.angulo = lista.getCant();
         this.lis = lista.getlista();
         this.listaLineas = new ArrayList<Linea>();   
-        this.bridges = new ArrayList<Linea>();
+        this.bridges = new HashMap<String,ArrayList<Linea>>();
+        this.spots = new HashMap<String,ArrayList<Circle>>();
         this.radio = radio;
         this.strands = strands;
         setCordenateStrands();
-        this.arañita = new Spider();
-        arañita.moveTo(Spiderweb.getPoscenterImage()[0]-35,Spiderweb.getPoscenterImage()[1]-35);
+        this.spider = new Spider();
+        spider.moveTo(Spiderweb.getPoscenterImage()[0]-35,Spiderweb.getPoscenterImage()[1]-35);
+        this.SpiderSit = false;
     }
 
     /**
@@ -57,17 +64,26 @@ public class Spiderweb{
     }
     
     /**
-     * Hace visible cada una de las líneas en la lista de líneas y también hace visible la arañita.
-     * Si la lista de líneas está vacía, no se realiza ninguna acción.
+     * Hace visible todos los componentes del simulador.
      */
     public void makeVisible(){
         if(!isVisible){
             for(Linea lineasValor: listaLineas){
                 lineasValor.makeVisible();
             }
-            arañita.makeVisible();
-            for(Linea bridge: bridges){
-                bridge.makeVisible();
+            spider.makeVisible();
+            for(String color: bridges.keySet()){
+                for(Linea bridge : bridges.get(color)){
+                    bridge.makeVisible();
+                }
+            }  
+            for(String color: spots.keySet()){
+                for(Circle spot : spots.get(color)){
+                    spot.makeVisible();
+                }
+            }  
+            if(SpiderSit){
+                avisador.makeVisible();
             }
             isVisible = true;
         }
@@ -82,12 +98,34 @@ public class Spiderweb{
             for(Linea lineasValor: listaLineas){
                 lineasValor.makeInvisible();
             }
-            arañita.makeInvisible();
-            for(Linea bridge: bridges){
-                bridge.makeInvisible();
-            }
+            spider.makeInvisible();
+            for(String color: bridges.keySet()){
+                for(Linea bridge : bridges.get(color)){
+                    bridge.makeInvisible();
+                }
+            }   
+            for(String color: spots.keySet()){
+                for(Circle spot : spots.get(color)){
+                    spot.makeInvisible();
+                }
+            } 
+            avisador.makeInvisible();
             isVisible = false;
         }
+    }
+    
+    private Linea createBridge(int firstStrand, int distance, String color){
+        double angleFirstStrand = (firstStrand-1)*angulo;
+        double angleSecondStrand = (firstStrand)*angulo;
+        float posx1 = Math.round(distance * Math.cos(Math.toRadians(angleFirstStrand)));
+        float posy1 = Math.round(distance * Math.sin(Math.toRadians(angleFirstStrand)));
+        float posx2 = Math.round(distance * Math.cos(Math.toRadians(angleSecondStrand)));
+        float posy2 = Math.round(distance * Math.sin(Math.toRadians(angleSecondStrand)));
+        Linea bridge = new Linea(centroImagenX+posx1,centroImagenY-posy1,centroImagenX+posx2,centroImagenY-posy2);
+        bridge.changeColor(color);
+        bridge.makeVisible();
+        bridge.setInitStrand(firstStrand);
+        return bridge;
     }
     
     /**
@@ -99,20 +137,22 @@ public class Spiderweb{
      * @param firstStrand La coordenada inicial del puente en grados (de 1 a 360) alrededor del punto central.
      **/
     public void addBridge(String color, int distance, int firstStrand){
-        if(firstStrand > radio){
-            JOptionPane.showMessageDialog(null, "No se puede poder un puente a una distancia mayor a la de las telerañas");
+        if(distance > radio){
+            if(isVisible){JOptionPane.showMessageDialog(null, "No se puede poder un puente a una distancia mayor del limite de las arañas");}
+            isOk = false;
+        }else if(firstStrand > strands){
+            if(isVisible){JOptionPane.showMessageDialog(null, "No se puede poder un puente en un hilo que no existe");
+            }isOk = false;
         }else{
-            double angleFirstStrand = (firstStrand-1)*angulo;
-            double angleSecondStrand = (firstStrand)*angulo;
-            double posx1 = Math.round((distance * Math.cos(Math.toRadians(angleFirstStrand))));
-            double posy1 = Math.round((distance * Math.sin(Math.toRadians(angleFirstStrand))));
-            double posx2 = Math.round((distance * Math.cos(Math.toRadians(angleSecondStrand))) * 100.0) / 100.0;
-            double posy2 = Math.round((distance * Math.sin(Math.toRadians(angleSecondStrand))) * 100.0) / 100.0;
-            Linea bridge = new Linea(centroImagenX+(float)posx1,centroImagenY-(float)posy1,centroImagenX+(float)posx2,centroImagenY-(float)posy2);
-            bridge.changeColor(color);
-            bridge.makeVisible();
-            bridges.add(bridge);
-        }
+            Linea bridge = createBridge(firstStrand, distance, color);
+            if(bridges.containsKey(color)){
+                bridges.get(color).add(bridge);
+            }else{
+                ArrayList<Linea> puente = new ArrayList<Linea>();
+                puente.add(bridge);
+                bridges.put(color,puente);
+            }isOk = true;
+        } 
     }
     
     public static int[] getPoscenterImage(){
@@ -123,8 +163,24 @@ public class Spiderweb{
     /**
      * 
      */
-    private void relocateBridge(String color, int distance, int initStrand, int finalStrand){
-        
+    public void relocateBridge(String color, int distance){
+        if(distance > radio){
+            if(isVisible){JOptionPane.showMessageDialog(null, "No se puede reubicar los puentes a una distancia mayor del limite de las arañas");
+            }isOk = false;
+        }else if(!bridges.containsKey(color)){
+            if(isVisible){JOptionPane.showMessageDialog(null, "No hay ningun puente con ese color");
+            }isOk = false;
+        }else{
+            for(Linea bridge : bridges.get(color)){
+                double angleFirstStrand = (bridge.getInitStrand()-1)*angulo;
+                double angleSecondStrand = (bridge.getInitStrand())*angulo;
+                float posx1 = Math.round(distance * Math.cos(Math.toRadians(angleFirstStrand)));
+                float posy1 = Math.round(distance * Math.sin(Math.toRadians(angleFirstStrand)));
+                float posx2 = Math.round(distance * Math.cos(Math.toRadians(angleSecondStrand)));
+                float posy2 = Math.round(distance * Math.sin(Math.toRadians(angleSecondStrand)));
+                bridge.newPoints(centroImagenX+posx1,centroImagenY-posy1,centroImagenX+posx2,centroImagenY-posy2);
+            }isOk = true;
+        }
     }
     
     /**
@@ -133,35 +189,75 @@ public class Spiderweb{
      * @param color El color del puente que se desea eliminar.
      * @param cod_Bridge El código del puente que se desea eliminar.
      */
-    public void delBridge(int cod_Bridge){
-        if(cod_Bridge > bridges.size()){
-            JOptionPane.showMessageDialog(null, "No se puede eliminar un puente que no existe");
+    public void delBridge(String color){
+        if(!bridges.containsKey(color)){
+            if(isVisible){JOptionPane.showMessageDialog(null, "No existe ningun puente con dicho color");
+            }isOk = false;
         }else{
-            Linea bridge = bridges.get(cod_Bridge-1);
-            bridge.makeInvisible();
-            bridges.remove(cod_Bridge-1);
+            for(Linea bridge : bridges.get(color)){
+                bridge.makeInvisible();   
+            }
+            bridges.get(color).clear();
+            isOk = true;
         }
     }
     
     /**
      * 
      */
-    private void addSpot(String color, int strand){
-    
+    public void addSpot(String color, int strand){
+        if(strand > radio){
+            if(isVisible){JOptionPane.showMessageDialog(null, "No puedes poner un spot en un hilo inexistente");
+            }isOk = false;
+        }else{
+            Linea hilo = listaLineas.get(strand-1);
+            Circle spot = new Circle((int)hilo.getX2(),(int)hilo.getY2());
+            spot.changeColor(color);
+            spot.makeVisible();
+            spot.setStrand(strand);
+            if(spots.containsKey(color)){
+                spots.get(color).add(spot);
+            }else{
+                ArrayList<Circle> lugar = new ArrayList<Circle>();
+                lugar.add(spot);
+                spots.put(color,lugar);
+            }isOk = true;
+        }
+        
     }
     
     /**
      * 
      */
-    private void delSpot(String color){
-    
+    public void delSpot( String color){
+        if(!spots.containsKey(color)){
+            if(isVisible){JOptionPane.showMessageDialog(null, "No existen spots de ese color");
+            }isOk = true;
+        }else{
+            for(Circle spot : spots.get(color)){
+                spot.makeInvisible();
+            }
+            spots.get(color).clear();
+            isOk = true;
+        }
     }
     
     /**
      * 
      */
-    private void spiderSit(int strand){
+    public void spiderSit(){
+        if(SpiderSit == false){
+            this.SpiderSit = true;
+            avisador.makeVisible();
+        }else{
+            this.SpiderSit = false;
+            avisador.makeInvisible();
+        }isOk = true;
+    }
     
+    public boolean isSpiderSit(){
+        isOk = true;
+        return SpiderSit;
     }
     
     /**
@@ -169,5 +265,103 @@ public class Spiderweb{
      */
     private void spiderWalk(boolean advance){
     
+    }
+    
+    /**
+     * 
+     */
+    private int[] spiderLastPath(){
+        return null;
+    }
+    
+    /**
+     * 
+     */
+    public String[] bridges(){
+        String[] puentes = new String[bridges.size()];
+        int i = 0;
+        for(String puente : bridges.keySet()){
+            puentes[i] = puente;
+            i++;
+        }
+        isOk = true;
+        return puentes;
+    }
+    
+    /**
+     * 
+     */
+    public int[] bridge(String color){
+        if(!bridges.containsKey(color)){
+            if(isVisible){JOptionPane.showMessageDialog(null, "No existen puentes de ese color");} 
+            int[] vacio = {};
+            isOk = false;
+            return vacio;
+        }else{
+            ArrayList<Linea> puentes = bridges.get(color);
+            int[] numStrands = new int[puentes.size()];
+            int i = 0;
+            for(Linea puente: puentes){
+                numStrands[i] = puente.getInitStrand();
+                i++;
+            }
+            isOk = true;
+            return numStrands;
+        }
+    }
+    
+    /**
+     * 
+     */
+    public String[] spots(){
+        String[] lugares = new String[spots.size()];
+        int i = 0;
+        for(String spot : spots.keySet()){
+            lugares[i] = spot;
+            i++;
+        }
+        isOk = true;
+        return lugares;
+    }
+    
+    /**
+     * 
+     */
+    public int[] spot(String color){
+        if(!spots.containsKey(color)){
+            if(isVisible){JOptionPane.showMessageDialog(null, "No existen spots de ese color");} 
+            int[] vacio = {};
+            isOk = false;
+            return vacio;
+        }else{
+            ArrayList<Circle> lugares = spots.get(color);
+            int[] numStrands = new int[lugares.size()];
+            int i = 0;
+            for(Circle lugar: lugares){
+                numStrands[i] = lugar.getStrand();
+                i++;
+            }
+            isOk = true;
+            return numStrands;
+        }
+    }
+    
+    /**
+     * 
+     */
+    public void finish(){
+         this.makeInvisible();
+         this.listaLineas = null;
+         this.lista = null;
+         this.lis = null;
+         this.spider = null;
+         this.bridges = null;
+         this.spots = null;
+         this.avisador = null;
+         isOk = true;
+    }
+    
+    public boolean ok(){
+        return isOk;
     }
 }
