@@ -206,7 +206,7 @@ public class Spiderweb{
      * 
      */
     public void addSpot(String color, int strand){
-        if(strand > radio){
+        if(strand > strands){
             if(isVisible){JOptionPane.showMessageDialog(null, "No puedes poner un spot en un hilo inexistente");
             }isOk = false;
         }else{
