@@ -1,6 +1,8 @@
 
 /**
- * Componentes y realización de la araña
+ * Representa una araña con componentes específicos como cabeza, cuerpo y patas.
+ * Permite mover, hacer visible e invisible la araña, así como cambiar su tamaño.
+ * Además, inicializa y posiciona los componentes de la araña.
  * 
  * @author Diego Cárdenas y Sebastián Cardona
  * @version 1.0
@@ -26,8 +28,8 @@ public class Spider
 
     
     /**
-     * Constructor for objects of class Spider
-     * Inicializar la araña y ubiar sus componentes
+     * Constructor de la clase Spider.
+     * Inicializa una nueva araña con cabeza y cuerpo, y posiciona sus componentes.
      */
     public Spider()
     {
@@ -36,18 +38,26 @@ public class Spider
         initDrawSpider();
     }
     
+    /**
+     * Obtiene la posición horizontal del cuerpo.
+     * 
+     * @return La posición horizontal del cuerpo.
+     */
     public int getPosx(){
         return cuerpo.getxPosition();
     }
     
+    /**
+     * Obtiene la posición vertical del cuerpo.
+     * 
+     * @return La posición vertical del cuerpo.
+     */
     public int getPosy(){
         return cuerpo.getyPosition();
     }
 
     /**
-     * Initializes the drawing by creating lines and positioning the elements.
-     * This method sets up the lines representing the legs of an spider relative to its body and head.
-     * It also adjusts the size and position of the head relative to the body.
+     * Inicializa el dibujo de la araña, creando y posicionando los componentes.
      */
     private void initDrawSpider(){
         reorPatasDelanteras();
@@ -57,6 +67,9 @@ public class Spider
         reordenarCabeza();
     }
     
+     // Métodos privados para reorganizar las patas delanteras y traseras
+    
+    // Método para mover las patas traseras de la araña
     private void reorPatasDelanteras(){
         this.pata1 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
@@ -74,6 +87,7 @@ public class Spider
         cuerpo.getxPosition()-cabeza.getDiameter()/10,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
     }
     
+    // Método para mover las patas delanteras de la araña
     private void reorPatasTraseras(){
         this.pata5 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8);
@@ -95,6 +109,7 @@ public class Spider
         this.pata81 = new Linea(cuerpo.getxPosition()-cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4,
         cuerpo.getxPosition()-cabeza.getDiameter()/3,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
     }
+    // Otros métodos de la clase
     
     private void reordenarCabeza(){
         cabeza.changeSize(cuerpo.getDiameter()/3);
@@ -190,6 +205,10 @@ public class Spider
 
     }  
     
+    /**
+     * Cambiar el tamaño de la araña
+     * @param newSize el nuevo tamaño
+     */
     public void changeSize(int newSize){
         cuerpo.changeSize((int)(cuerpo.getDiameter() + cuerpo.getDiameter()*((float)newSize/100)));
         cabeza.changeSize((int)(cabeza.getDiameter() + cabeza.getDiameter()*((float)newSize/100)));
@@ -198,7 +217,8 @@ public class Spider
         reordenarCabeza();
         cuerpo.makeVisible();
     }
- 
+    
+    // Otros métodos de la clase
     private void reorPatasDelanteras1(){
         pata1.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
