@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Linea
-comment0.text=\r\n\ Una\ linea\r\n\ \r\n\ @author\ \ Michael\ Kolling\ and\ David\ J.\ Barnes\r\n\ @version\ 1.0\ \ (15\ July\ 2000)\r\n
+comment0.text=\r\n\ Clase\ que\ representa\ un\ objeto\ l\u00EDnea.\r\n\ Una\ l\u00EDnea\ se\ define\ por\ dos\ puntos\ extremos\ en\ un\ plano.\r\n\ Permite\ operaciones\ como\ cambiar\ posici\u00F3n,\ color\ y\ visibilidad.\r\n\ Tambi\u00E9n\ puede\ dibujarse\ y\ borrarse\ en\ una\ ventana\ gr\u00E1fica.\r\n\ \r\n\ @author\ \ Sebastian\ Cardona\ -\ Diego\ Cardenas\r\n\ @version\ 1.0\r\n
 comment1.params=x2\ y2
 comment1.target=Linea(float,\ float)
-comment1.text=\r\n\ Create\ a\ new\ Line\ with\ a\ static\ start\ position\r\n
+comment1.text=\r\n\ Crea\ una\ nueva\ l\u00EDnea\ con\ un\ punto\ final\ est\u00E1tico.\r\n\ La\ l\u00EDnea\ se\ crea\ desde\ el\ centro\ de\ la\ imagen\ hasta\ el\ punto\ final\ especificado.\r\n\ \r\n\ @param\ x2\ La\ coordenada\ x\ del\ punto\ final\ de\ la\ l\u00EDnea.\r\n\ @param\ y2\ La\ coordenada\ y\ del\ punto\ final\ de\ la\ l\u00EDnea.\r\n
 comment10.params=
 comment10.target=void\ makeInvisible()
 comment10.text=\r\n\ Make\ this\ triangle\ invisible.\ If\ it\ was\ already\ invisible,\ do\ nothing.\r\n

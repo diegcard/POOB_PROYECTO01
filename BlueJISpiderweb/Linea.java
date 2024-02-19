@@ -2,10 +2,13 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import javax.swing.JOptionPane;
 /**
- * Una linea
+ * Clase que representa un objeto línea.
+ * Una línea se define por dos puntos extremos en un plano.
+ * Permite operaciones como cambiar posición, color y visibilidad.
+ * También puede dibujarse y borrarse en una ventana gráfica.
  * 
- * @author  Michael Kolling and David J. Barnes
- * @version 1.0  (15 July 2000)
+ * @author  Sebastian Cardona - Diego Cardenas
+ * @version 1.0
  */
 
 public class Linea{
@@ -18,7 +21,11 @@ public class Linea{
     private int initStrand;
     
     /**
-     * Create a new Line with a static start position
+     * Crea una nueva línea con un punto final estático.
+     * La línea se crea desde el centro de la imagen hasta el punto final especificado.
+     * 
+     * @param x2 La coordenada x del punto final de la línea.
+     * @param y2 La coordenada y del punto final de la línea.
      */
     public Linea(float x2, float y2){
         color = "black";

@@ -301,6 +301,22 @@ public class Spiderweb{
     public void PosicionActualArana(){
         System.out.println("La posicion de la arana actual es: " + strandActual);
     }
+    public void siperWalk(boolean advance){
+        if(advance){
+            int count = 0;
+            int temp = 0;
+            for(List<Linea> var : puentesPorLineas){
+                temp += var.size();
+            }
+            while(count != 0){
+                for(List<Linea> var : puentesPorLineas){
+                    temp += var.size();
+                }
+                count = temp; 
+                spiderWalk();
+            }
+        }
+    }
     
     /**
      * 
@@ -311,7 +327,6 @@ public class Spiderweb{
             float Y  = listaLineas.get(strandActual-1).getY2() - spider.getPosy();
             spider.moveTo((int)X, (int)Y);
         }else{
-            
             for(Linea puenteActual : puentesPorLineas.get(strandActual-1)){
                 float X = puenteActual.getX1()  - spider.getPosx();
                 float Y = puenteActual.getY1() - spider.getPosy();
@@ -321,29 +336,16 @@ public class Spiderweb{
                 float Y2 = puenteActual.getY2() - spider.getPosy();
                 System.out.println("Segundo movimiento: "+X2 + " " + Y2);
                 spider.moveTo((int)X2, (int)Y2);
-                
-                // if(X2 <= 0){
-                    // strandActual+=1;
-                // }else{
-                    // strandActual-=1;
-                // }
+                System.out.println("Diferencia en X: "+ (X2-X));
+                System.out.println("Diferencia en Y: "+ (Y2-Y));
                 spidertLastPath[0] = (int)X;
                 spidertLastPath[1] = (int)Y;
                 break;
             }
-            
-            // for(Linea puenteActual : puentesPorLineas.get(strandActual-1)){
-                // float X = puenteActual.getX2()  - spider.getPosx();
-                // float Y = puenteActual.getY2() - spider.getPosy();
-                // System.out.println("Segundo movimiento: "+X + " " + Y);
-                // spider.moveTo((int)X, (int)Y);
-                // break;
-            // }
-            
             puentesPorLineas.get(strandActual-1).remove(0);
             puentesPorLineas.get(strandActual).remove(0);
             
-            //strandActual+=1;
+            strandActual+=1;
         }
     }
     
