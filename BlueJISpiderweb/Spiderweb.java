@@ -138,6 +138,14 @@ public class Spiderweb{
         }
     }
     
+    /**
+     * Crea un puente entre dos hebras.
+     *
+     * @param firstStrand El índice de la primera hebra.
+     * @param distance La distancia desde el centro del círculo al punto de unión del puente.
+     * @param color El color del puente.
+     * @return Una instancia de la clase Linea que representa el puente creado.
+    */
     private Linea createBridge(int firstStrand, int distance, String color){
         double angleFirstStrand = (firstStrand-1)*angulo;
         double angleSecondStrand = (firstStrand)*angulo;
@@ -152,6 +160,14 @@ public class Spiderweb{
         return bridge;
     }
     
+    /**
+     * Crea un puente entre dos hebras.
+     *
+     * @param firstStrand El índice de la primera hebra.
+     * @param distance La distancia desde el centro del círculo al punto de unión del puente.
+     * @param color El color del puente.
+     * @return Una instancia de la clase Linea que representa el puente creado.
+    */
     private Linea createBridge2(int firstStrand, int distance) {
         double angleFirstStrand = (firstStrand-1)*angulo;
         double angleSecondStrand = (firstStrand)*angulo;
@@ -199,8 +215,11 @@ public class Spiderweb{
     }
     
     /**
-     * 
-     */
+     * Reubica los puentes de un color específico a una distancia determinada desde el centro de la telaraña.
+     *
+     * @param color El color del puente que se va a reubicar.
+     * @param distance La nueva distancia desde el centro del círculo al punto de unión del puente.
+    */
     public void relocateBridge(String color, int distance){
         if(distance > radio){
             if(isVisible){JOptionPane.showMessageDialog(null, "No se puede reubicar los puentes a una distancia mayor del limite de las arañas");
@@ -222,7 +241,7 @@ public class Spiderweb{
     }
     
     /**
-     * Elimina un puente de la telaraña basado en su color y código de puente.
+     * Elimina los puentes de la telaraña basado en su color.
      *
      * @param color El color del puente que se desea eliminar.
      * @param cod_Bridge El código del puente que se desea eliminar.
@@ -241,8 +260,10 @@ public class Spiderweb{
     }
     
     /**
-     * 
-     */
+     * añade un lugar favorito de la araña para dormir, representado por un circulo
+     * @param color El color del circulo
+     * @param Strand El hilo donde se pondrá el lugar
+    */
     public void addSpot(String color, int strand){
         if(strand > strands){
             if(isVisible){JOptionPane.showMessageDialog(null, "No puedes poner un spot en un hilo inexistente");
@@ -265,7 +286,8 @@ public class Spiderweb{
     }
     
     /**
-     * 
+     * elimina los lugares favoritos de la araña para dormir, clasificados por un color
+     * @param color El color de los circulos a eliminar
      */
     public void delSpot( String color){
         if(!spots.containsKey(color)){
@@ -281,7 +303,7 @@ public class Spiderweb{
     }
     
     /**
-     * 
+     * cambia el estado de la araña de parada a sentada y visceversa
      */
     public void spiderSit(){
         if(!SpiderSit){
@@ -293,6 +315,10 @@ public class Spiderweb{
         }isOk = true;
     }
     
+    
+    /**
+     * sienta la araña en una hebra especificada y la guarda como en la posición actual en la que está
+     */
     public void spiderSit(int strand){
         this.strand = strand;
         this.strandActual = strand;
@@ -303,7 +329,7 @@ public class Spiderweb{
     }
     
     /**
-     * 
+     * hace avanzar la araña automáticamente por sus puentes
      */
     public void spiderWalk(){
         if(puentesPorLineas.get(strandActual-1).size() == 0){
@@ -347,20 +373,26 @@ public class Spiderweb{
         }
     }
     
+    /**
+     * Dice si la araña está sentada o no
+     * @return SpiderSit un booleano
+     */
     public boolean isSpiderSit(){
         isOk = true;
         return SpiderSit;
     }
     
     /**
-     * 
+     * retorna la ultima posicion de la araña
+     * @return un arreglo indicando el punto x,y anterior de la araña
      */
     private int[] spiderLastPath(){
         return spidertLastPath;
     }
     
     /**
-     * 
+     * da todos los colores de puentes que existen
+     * @return un arreglo de strings con los colores de los puentes
      */
     public String[] bridges(){
         String[] puentes = new String[bridges.size()];
@@ -374,7 +406,9 @@ public class Spiderweb{
     }
     
     /**
-     * 
+     * da todos los puentes de un color dado que existen
+     * @param color el color de los puentes a consultar
+     * @return un arreglo de enteros con los puentes del color
      */
     public int[] bridge(String color){
         if(!bridges.containsKey(color)){
@@ -396,7 +430,8 @@ public class Spiderweb{
     }
     
     /**
-     * 
+     * da todos los colores de spots que existen
+     * @return un arreglo de strings con los colores de los spots
      */
     public String[] spots(){
         String[] lugares = new String[spots.size()];
@@ -410,7 +445,9 @@ public class Spiderweb{
     }
     
     /**
-     * 
+     * da todos los spots de un color dado que existen
+     * @param color el color de los lugares a consultar
+     * @return un arreglo de enteros con los lugar del color
      */
     public int[] spot(String color){
         if(!spots.containsKey(color)){
@@ -432,7 +469,7 @@ public class Spiderweb{
     }
     
     /**
-     * 
+     * termina el simulador
      */
     public void finish(){
          this.makeInvisible();
@@ -446,6 +483,10 @@ public class Spiderweb{
          isOk = true;
     }
     
+    /**
+     * retorna si el ultimo movimiento fue valido
+     * @return isOk un booleano
+     */
     public boolean ok(){
         return isOk;
     }

@@ -2,10 +2,13 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import javax.swing.JOptionPane;
 /**
- * Una linea
+ * Clase que representa un objeto línea.
+ * Una línea se define por dos puntos extremos en un plano.
+ * Permite operaciones como cambiar posición, color y visibilidad.
+ * También puede dibujarse y borrarse en una ventana gráfica.
  * 
- * @author  Michael Kolling and David J. Barnes
- * @version 1.0  (15 July 2000)
+ * @author  Sebastian Cardona - Diego Cardenas
+ * @version 1.0
  */
 
 public class Linea{
@@ -18,7 +21,11 @@ public class Linea{
     private int initStrand;
     
     /**
-     * Create a new Line with a static start position
+     * Crea una nueva línea con un punto final estático.
+     * La línea se crea desde el centro de la imagen hasta el punto final especificado.
+     * 
+     * @param x2 La coordenada x del punto final de la línea.
+     * @param y2 La coordenada y del punto final de la línea.
      */
     public Linea(float x2, float y2){
         color = "black";
@@ -132,11 +139,21 @@ public class Linea{
         isVisible = false;
     }
     
+    /**
+     * Cambia el color de la línea.
+     * 
+     * @param newcolor El nuevo color de la línea.
+     */
     public void changeColor(String newcolor){
         color = newcolor;
         draw();
     }
     
+    /**
+     * Mueve la línea horizontalmente por la cantidad especificada.
+     * 
+     * @param distancia La distancia a mover la línea horizontalmente.
+     */
     public void moveHorizontal( int distancia){
         erase();
         x1 += distancia;
@@ -144,6 +161,11 @@ public class Linea{
         draw();
     }
     
+    /**
+     * Mueve la línea verticalmente por la cantidad especificada.
+     * 
+     * @param distancia La distancia a mover la línea verticalmente.
+     */
     public void moveVertical( int distancia){
         erase();
         y1 += distancia;
@@ -152,8 +174,8 @@ public class Linea{
     }
     
     /**
-     * Draw the line with current specifications on screen.
-     **/
+     * Dibuja la línea con las especificaciones actuales en pantalla.
+     */
     private void draw(){
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
@@ -174,15 +196,18 @@ public class Linea{
     }
     
     /**
-     * if the Line is a Bridge, we will get the initStrand
-     * @ return the initStrand
+     * Obtiene el valor de initStrand si la línea es un puente.
+     * 
+     * @return El valor de initStrand.
      */
     public int getInitStrand(){
         return initStrand;
     }
     
     /**
-     * if the Line is a Bridge, we will save the initStrand
+     * Establece el valor de initStrand si la línea es un puente.
+     * 
+     * @param newInit
      */
     public void setInitStrand(int newInitStrand){
        this.initStrand = newInitStrand;
