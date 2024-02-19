@@ -2,140 +2,46 @@
 dependency1.from=Circle
 dependency1.to=Canvas
 dependency1.type=UsesDependency
-<<<<<<< HEAD
 dependency10.from=Linea
 dependency10.to=Canvas
-||||||| ce28aee
-dependency10.from=Spiderweb
-dependency10.to=Circle
-=======
-dependency10.from=Spider
-dependency10.to=Circle
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
 dependency10.type=UsesDependency
-<<<<<<< HEAD
 dependency11.from=Linea
 dependency11.to=Spiderweb
-||||||| ce28aee
-dependency11.from=Spiderweb
-dependency11.to=Triangle
-=======
-dependency11.from=Spider
-dependency11.to=Linea
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
 dependency11.type=UsesDependency
 dependency2.from=Triangle
 dependency2.to=Canvas
 dependency2.type=UsesDependency
-<<<<<<< HEAD
-dependency3.from=Spider
-dependency3.to=Circle
-||||||| ce28aee
-dependency3.from=Circle
-dependency3.to=Canvas
-=======
 dependency3.from=Spiderweb
 dependency3.to=Linescoordinates
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
 dependency3.type=UsesDependency
-<<<<<<< HEAD
-dependency4.from=Spider
-dependency4.to=Linea
-||||||| ce28aee
-dependency4.from=Spider
-dependency4.to=Circle
-=======
 dependency4.from=Spiderweb
 dependency4.to=Linea
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
 dependency4.type=UsesDependency
-<<<<<<< HEAD
-dependency5.from=Spiderweb
-dependency5.to=Linescoordinates
-||||||| ce28aee
-dependency5.from=Spider
-dependency5.to=Linea
-=======
 dependency5.from=Spiderweb
 dependency5.to=Spider
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
 dependency5.type=UsesDependency
-<<<<<<< HEAD
-dependency6.from=Spiderweb
-dependency6.to=Linea
-||||||| ce28aee
-dependency6.from=Triangle
-dependency6.to=Canvas
-=======
 dependency6.from=Spiderweb
 dependency6.to=Circle
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
 dependency6.type=UsesDependency
 dependency7.from=Spiderweb
-<<<<<<< HEAD
-dependency7.to=Spider
-||||||| ce28aee
-dependency7.to=Linescoordinates
-=======
 dependency7.to=Triangle
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
 dependency7.type=UsesDependency
-<<<<<<< HEAD
-dependency8.from=Spiderweb
+dependency8.from=Spider
 dependency8.to=Circle
-||||||| ce28aee
-dependency8.from=Spiderweb
-dependency8.to=Linea
-=======
-dependency8.from=Linea
-dependency8.to=Canvas
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
 dependency8.type=UsesDependency
-<<<<<<< HEAD
-dependency9.from=Spiderweb
-dependency9.to=Triangle
-||||||| ce28aee
-dependency9.from=Spiderweb
-dependency9.to=Spider
-=======
-dependency9.from=Linea
-dependency9.to=Spiderweb
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
+dependency9.from=Spider
+dependency9.to=Linea
 dependency9.type=UsesDependency
-<<<<<<< HEAD
 editor.fx.0.height=830
 editor.fx.0.width=1550
 editor.fx.0.x=-7
 editor.fx.0.y=-7
-objectbench.height=222
+objectbench.height=203
 objectbench.width=1511
-package.divider.horizontal=0.6
-package.divider.vertical=0.6854485776805251
-package.editor.height=495
-package.editor.width=1384
-||||||| ce28aee
-editor.fx.0.height=744
-editor.fx.0.width=1382
-editor.fx.0.x=-8
-editor.fx.0.y=-8
-objectbench.height=192
-objectbench.width=803
-package.divider.horizontal=0.6
-package.divider.vertical=0.7107558139534884
-package.editor.height=482
-package.editor.width=1230
-=======
-editor.fx.0.height=744
-editor.fx.0.width=1382
-editor.fx.0.x=-8
-editor.fx.0.y=-8
-objectbench.height=192
-objectbench.width=776
 package.divider.horizontal=0.58
-package.divider.vertical=0.7107558139534884
-package.editor.height=482
-package.editor.width=1230
->>>>>>> 0dd22386fb9d2fdff472f115c6de1c148303ce3e
+package.divider.vertical=0.710843373493976
+package.editor.height=513
+package.editor.width=1398
 package.editor.x=0
 package.editor.y=0
 package.frame.height=830
