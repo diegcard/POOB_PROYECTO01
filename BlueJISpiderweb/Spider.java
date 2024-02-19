@@ -35,6 +35,14 @@ public class Spider
         this.cuerpo = new Circle();
         initDrawSpider();
     }
+    
+    public int getPosx(){
+        return cuerpo.getxPosition();
+    }
+    
+    public int getPosy(){
+        return cuerpo.getyPosition();
+    }
 
     /**
      * Initializes the drawing by creating lines and positioning the elements.

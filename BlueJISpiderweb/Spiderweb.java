@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Aqui se hará el simulador del Spiderweb
  * 
@@ -9,14 +11,16 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class Spiderweb{
-    private boolean isVisible;
-    private int strands;
-    private int radio;
-    private Linescoordinates lista;
-    private ArrayList<Linea> listaLineas;
-    private List<Pair<Double, Double>> lis;
-    private Spider spider;
-    private double angulo;
+    private boolean isVisible;  //Es visible la figura
+    private int strands;        //Cantidad de telarañas
+    private int strand;         //A la Telaraña que se debe mover
+    private int strandActual;   //Telaraña actual de la araña
+    private int radio;          //Radio des las telarañas
+    private Linescoordinates lista;// Lista de las coordenadas
+    private ArrayList<Linea> listaLineas;   //Lista de las lineas 
+    private List<Pair<Double, Double>> lis;//
+    private Spider spider;//Araña
+    private double angulo;//Angulo 
     private HashMap<String,ArrayList<Linea>> bridges;
     private static final int centroImagenX = 500;
     private static final int centroImagenY = 400;
@@ -24,6 +28,9 @@ public class Spiderweb{
     private HashMap<String,ArrayList<Circle>> spots;
     private Triangle avisador = new Triangle(20,20);
     private boolean isOk = true;
+    private List<List<Linea>> puentesPorLineas;
+    private int[] spidertLastPath;
+    
     
     /**
      * Constructor de la clase Spiderweb.
@@ -46,6 +53,23 @@ public class Spiderweb{
         this.spider = new Spider();
         spider.moveTo(Spiderweb.getPoscenterImage()[0]-35,Spiderweb.getPoscenterImage()[1]-35);
         this.SpiderSit = false;
+        this.puentesPorLineas = new ArrayList<>();
+        for(int i = 0; i < strands; i++){
+            puentesPorLineas.add(new ArrayList<Linea>());
+        }
+        spidertLastPath = new int[2];
+    }
+    
+    public void printear(){
+        //System.out.println(bridges.get("red").get(0).getX1());
+        //System.out.println(bridges.get("red").get(0).getX2());
+        //System.out.println(bridges.get("red").get(0).getY1());
+        //System.out.println(bridges.get("red").get(0).getY2());
+        System.out.println(puentesPorLineas);
+        //System.out.println(puentesPorLineas.get(0).get(0).getX1());
+        //System.out.println(puentesPorLineas.get(0).get(0).getY1());
+        //System.out.println(puentesPorLineas.get(0).get(0).getX1());
+        //System.out.println(puentesPorLineas.get(0).get(0).getY2());
     }
 
     /**
@@ -128,6 +152,17 @@ public class Spiderweb{
         return bridge;
     }
     
+    private Linea createBridge2(int firstStrand, int distance) {
+        double angleFirstStrand = (firstStrand-1)*angulo;
+        double angleSecondStrand = (firstStrand)*angulo;
+        float posx1 = Math.round(distance * Math.cos(Math.toRadians(angleFirstStrand)));
+        float posy1 = Math.round(distance * Math.sin(Math.toRadians(angleFirstStrand)));
+        float posx2 = Math.round(distance * Math.cos(Math.toRadians(angleSecondStrand)));
+        float posy2 = Math.round(distance * Math.sin(Math.toRadians(angleSecondStrand)));
+        Linea bridge = new Linea(centroImagenX + posx2, centroImagenY - posy2, centroImagenX + posx1, centroImagenY - posy1);
+        return bridge;
+    }     
+    
     /**
      * Agrega un puente entre dos puntos en la pantalla, dados un color, una distancia y una coordenada inicial.
      * El puente se crea entre la coordenada inicial y la coordenada siguiente en el círculo alrededor del punto central.
@@ -145,6 +180,9 @@ public class Spiderweb{
             }isOk = false;
         }else{
             Linea bridge = createBridge(firstStrand, distance, color);
+            Linea bridge2 = createBridge2(firstStrand, distance);
+            puentesPorLineas.get(firstStrand-1).add(bridge);
+            puentesPorLineas.get(firstStrand).add(bridge2);
             if(bridges.containsKey(color)){
                 bridges.get(color).add(bridge);
             }else{
@@ -246,13 +284,67 @@ public class Spiderweb{
      * 
      */
     public void spiderSit(){
-        if(SpiderSit == false){
+        if(!SpiderSit){
             this.SpiderSit = true;
             avisador.makeVisible();
         }else{
             this.SpiderSit = false;
             avisador.makeInvisible();
         }isOk = true;
+    }
+    
+    public void spiderSit(int strand){
+        this.strand = strand;
+        this.strandActual = strand;
+    }
+    
+    public void PosicionActualArana(){
+        System.out.println("La posicion de la arana actual es: " + strandActual);
+    }
+    
+    /**
+     * 
+     */
+    public void spiderWalk(){
+        if(puentesPorLineas.get(strandActual-1).size() == 0){
+            float X  =  listaLineas.get(strandActual-1).getX2() - spider.getPosx();
+            float Y  = listaLineas.get(strandActual-1).getY2() - spider.getPosy();
+            spider.moveTo((int)X, (int)Y);
+        }else{
+            
+            for(Linea puenteActual : puentesPorLineas.get(strandActual-1)){
+                float X = puenteActual.getX1()  - spider.getPosx();
+                float Y = puenteActual.getY1() - spider.getPosy();
+                System.out.println("Primer movimiento: "+X + " " + Y);
+                spider.moveTo((int)X, (int)Y);
+                float X2 = puenteActual.getX2()  - spider.getPosx();
+                float Y2 = puenteActual.getY2() - spider.getPosy();
+                System.out.println("Segundo movimiento: "+X2 + " " + Y2);
+                spider.moveTo((int)X2, (int)Y2);
+                
+                // if(X2 <= 0){
+                    // strandActual+=1;
+                // }else{
+                    // strandActual-=1;
+                // }
+                spidertLastPath[0] = (int)X;
+                spidertLastPath[1] = (int)Y;
+                break;
+            }
+            
+            // for(Linea puenteActual : puentesPorLineas.get(strandActual-1)){
+                // float X = puenteActual.getX2()  - spider.getPosx();
+                // float Y = puenteActual.getY2() - spider.getPosy();
+                // System.out.println("Segundo movimiento: "+X + " " + Y);
+                // spider.moveTo((int)X, (int)Y);
+                // break;
+            // }
+            
+            puentesPorLineas.get(strandActual-1).remove(0);
+            puentesPorLineas.get(strandActual).remove(0);
+            
+            //strandActual+=1;
+        }
     }
     
     public boolean isSpiderSit(){
@@ -263,15 +355,8 @@ public class Spiderweb{
     /**
      * 
      */
-    private void spiderWalk(boolean advance){
-    
-    }
-    
-    /**
-     * 
-     */
     private int[] spiderLastPath(){
-        return null;
+        return spidertLastPath;
     }
     
     /**
