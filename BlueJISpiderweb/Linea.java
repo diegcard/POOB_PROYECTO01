@@ -19,6 +19,7 @@ public class Linea{
     private float y1;
     private float y2;
     private int initStrand;
+    private String direction;
     
     /**
      * Crea una nueva línea con un punto final estático.
@@ -211,6 +212,24 @@ public class Linea{
      */
     public void setInitStrand(int newInitStrand){
        this.initStrand = newInitStrand;
+    }
+    
+    /**
+     * Obtiene el valor de la direccion de a donde se dirige un puente.
+     * (der o izq)
+     * @return El valor de initStrand.
+     */
+    public String getDirection(){
+        return direction;
+    }
+    
+    /**
+     * Establece el valor de direction si la línea es un puente.
+     * (der o izq)
+     * @param newInit
+     */
+    public void setDirection(String newDirection){
+       this.direction = newDirection;
     }
     
 }

@@ -44,7 +44,7 @@ public class Spider
      * @return La posición horizontal del cuerpo.
      */
     public int getPosx(){
-        return cuerpo.getxPosition();
+        return cuerpo.getxPosition()+cuerpo.getDiameter()/2;
     }
     
     /**
@@ -53,7 +53,7 @@ public class Spider
      * @return La posición vertical del cuerpo.
      */
     public int getPosy(){
-        return cuerpo.getyPosition();
+        return cuerpo.getyPosition()+cuerpo.getDiameter()/2;
     }
 
     /**
