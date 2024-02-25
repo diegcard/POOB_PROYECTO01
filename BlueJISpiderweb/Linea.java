@@ -18,8 +18,6 @@ public class Linea{
     private float x2;
     private float y1;
     private float y2;
-    private int initStrand;
-    private String direction;
     
     /**
      * Crea una nueva línea con un punto final estático.
@@ -125,7 +123,7 @@ public class Linea{
     }
     
     /**
-     * Make this triangle visible. If it was already visible, do nothing.
+     * Make this Line visible. If it was already visible, do nothing.
      */
     public void makeVisible(){
         isVisible = true;
@@ -133,7 +131,7 @@ public class Linea{
     }
     
     /**
-     * Make this triangle invisible. If it was already invisible, do nothing.
+     * Make this Line invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible(){
         erase();
@@ -195,41 +193,4 @@ public class Linea{
             canvas.erase(this);
         }
     }
-    
-    /**
-     * Obtiene el valor de initStrand si la línea es un puente.
-     * 
-     * @return El valor de initStrand.
-     */
-    public int getInitStrand(){
-        return initStrand;
-    }
-    
-    /**
-     * Establece el valor de initStrand si la línea es un puente.
-     * 
-     * @param newInit
-     */
-    public void setInitStrand(int newInitStrand){
-       this.initStrand = newInitStrand;
-    }
-    
-    /**
-     * Obtiene el valor de la direccion de a donde se dirige un puente.
-     * (der o izq)
-     * @return El valor de initStrand.
-     */
-    public String getDirection(){
-        return direction;
-    }
-    
-    /**
-     * Establece el valor de direction si la línea es un puente.
-     * (der o izq)
-     * @param newInit
-     */
-    public void setDirection(String newDirection){
-       this.direction = newDirection;
-    }
-    
 }

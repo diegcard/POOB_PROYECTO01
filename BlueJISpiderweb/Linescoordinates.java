@@ -54,7 +54,7 @@ public class Linescoordinates{
      * 
      * @return El incremento angular entre líneas.
      */
-    public double getCant(){
+    public double getAngle(){
         return cant;
     }
     

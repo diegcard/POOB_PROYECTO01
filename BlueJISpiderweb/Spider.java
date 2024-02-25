@@ -1,3 +1,4 @@
+import java.util.*;
 
 /**
  * Representa una araña con componentes específicos como cabeza, cuerpo y patas.
@@ -11,103 +12,100 @@ public class Spider
 {
     private Circle cabeza;
     private Circle cuerpo;
-    private Linea pata1;
-    private Linea pata2;
-    private Linea pata3;
-    private Linea pata4;
-    private Linea pata31;
-    private Linea pata41;
-    private Linea pata5;
-    private Linea pata6;
-    private Linea pata51;
-    private Linea pata61;
-    private Linea pata7;
-    private Linea pata8;
-    private Linea pata71;
-    private Linea pata81;   
+    private ArrayList<Linea> patas;
+    private boolean isVisible =false;
 
-    
     /**
-     * Constructor de la clase Spider.
-     * Inicializa una nueva araña con cabeza y cuerpo, y posiciona sus componentes.
+     * Class spider contructor
+     * Init the new Spider with its all components
      */
     public Spider()
     {
         this.cabeza = new Circle();
         this.cuerpo = new Circle();
+        this.patas = new ArrayList<Linea>();
         initDrawSpider();
     }
     
     /**
-     * Obtiene la posición horizontal del cuerpo.
+     * get x coordenate
      * 
-     * @return La posición horizontal del cuerpo.
+     * @return x coordenate
      */
     public int getPosx(){
         return cuerpo.getxPosition()+cuerpo.getDiameter()/2;
     }
     
     /**
-     * Obtiene la posición vertical del cuerpo.
+     * get y coordenate
      * 
-     * @return La posición vertical del cuerpo.
+     * @return y coordenate
      */
     public int getPosy(){
         return cuerpo.getyPosition()+cuerpo.getDiameter()/2;
     }
 
-    /**
-     * Inicializa el dibujo de la araña, creando y posicionando los componentes.
-     */
+    // make the spider
     private void initDrawSpider(){
-        reorPatasDelanteras();
-        reorPatasTraseras();
+        reorPatas();
         cuerpo.changeColor("red");
-        cabeza.changeColor("blue");
+        cabeza.changeColor("red");
         reordenarCabeza();
     }
     
      // Métodos privados para reorganizar las patas delanteras y traseras
     
+    // Método para reordenar todas las patas juntas
+    private void reorPatas(){
+        patas.clear();
+        reorPatasDelanteras();
+        reorPatasTraseras();
+    }
+    
     // Método para mover las patas traseras de la araña
     private void reorPatasDelanteras(){
-        this.pata1 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
+        Linea pata1 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        this.pata2 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
+        patas.add(pata1);
+        Linea pata2 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        
-        this.pata3 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
+        patas.add(pata2);
+        Linea pata3 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20);
-        this.pata4 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
+        patas.add(pata3);
+        Linea pata4 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20);
-        
-        this.pata31 = new Linea(cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20,
+        patas.add(pata4);
+        Linea pata31 = new Linea(cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20,
         cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/10,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        this.pata41 = new Linea(cuerpo.getxPosition()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20,
+        patas.add(pata31);
+        Linea pata41 = new Linea(cuerpo.getxPosition()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20,
         cuerpo.getxPosition()-cabeza.getDiameter()/10,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
+        patas.add(pata41);
     }
     
     // Método para mover las patas delanteras de la araña
     private void reorPatasTraseras(){
-        this.pata5 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
+        Linea pata5 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8);
-        this.pata6 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
+        Linea pata6 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()-cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8);
-        
-        this.pata51 = new Linea(cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8,
+        patas.add(pata5);patas.add(pata6);
+        Linea pata51 = new Linea(cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8,
         cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        this.pata61 = new Linea(cuerpo.getxPosition()-cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8,
+        Linea pata61 = new Linea(cuerpo.getxPosition()-cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8,
         cuerpo.getxPosition()-cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        
-        this.pata7 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
+        patas.add(pata51);patas.add(pata61);
+        Linea pata7 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4);
-        this.pata8 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
+        Linea pata8 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()-cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4);
-        
-        this.pata71 = new Linea(cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4,
+        patas.add(pata7);patas.add(pata8);
+        Linea pata71 = new Linea(cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4,
         cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/3,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        this.pata81 = new Linea(cuerpo.getxPosition()-cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4,
+        Linea pata81 = new Linea(cuerpo.getxPosition()-cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4,
         cuerpo.getxPosition()-cabeza.getDiameter()/3,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
+        patas.add(pata71);patas.add(pata81);
     }
     // Otros métodos de la clase
     
@@ -117,145 +115,78 @@ public class Spider
         cabeza.moveVertical(cuerpo.getyPosition()+cuerpo.getDiameter()-cabeza.getDiameter()/2-cabeza.getyPosition());
     }
     
-    private void movePatasTraseras(int x, int y){
-        pata5.moveHorizontal(x);
-        pata5.moveVertical(y);
-        pata6.moveHorizontal(x);
-        pata6.moveVertical(y);
-        pata51.moveHorizontal(x);
-        pata51.moveVertical(y);
-        pata61.moveHorizontal(x);
-        pata61.moveVertical(y);
-        pata7.moveHorizontal(x);
-        pata7.moveVertical(y);
-        pata8.moveHorizontal(x);
-        pata8.moveVertical(y);
-        pata71.moveHorizontal(x);
-        pata71.moveVertical(y);
-        pata81.moveHorizontal(x);
-        pata81.moveVertical(y);
-    }
-    
-    private void movePatasDelanteras(int x, int y){
-        pata1.moveHorizontal(x);
-        pata1.moveVertical(y);
-        pata2.moveHorizontal(x);
-        pata2.moveVertical(y);
-        pata3.moveHorizontal(x);
-        pata3.moveVertical(y);
-        pata4.moveHorizontal(x);
-        pata4.moveVertical(y);
-        pata31.moveHorizontal(x);
-        pata31.moveVertical(y);
-        pata41.moveHorizontal(x);
-        pata41.moveVertical(y);
-    }
-    
-    public void moveTo(int x, int y){
-        movePatasDelanteras(x,y);
-        movePatasTraseras(x,y);
-        cabeza.moveHorizontal(x);
-        cabeza.moveVertical(y);
-        cuerpo.moveHorizontal(x);
-        cuerpo.moveVertical(y);
+    private void movePatas(int x, int y){
+        for(Linea pata: patas){
+            pata.moveHorizontal(x);
+            pata.moveVertical(y);
+        }
     }
     
     /**
-     * Hace visible el objeto.
+     * Move the Spider to new place
+     * @param x coordenate x
+     * @param y coordenate y
+     */
+    public void moveTo(int x, int y){
+        movePatas(x,y);
+        cuerpo.moveHorizontal(x);
+        cuerpo.moveVertical(y);
+        cabeza.moveHorizontal(x);
+        cabeza.moveVertical(y);
+    }
+    
+    /**
+     * make spider visible
      */
     public void makeVisible(){
-        pata1.makeVisible();
-        pata2.makeVisible();
-        pata3.makeVisible();
-        pata4.makeVisible();
-        pata31.makeVisible();
-        pata41.makeVisible();
-        pata5.makeVisible();
-        pata6.makeVisible();
-        pata51.makeVisible();
-        pata61.makeVisible();
-        pata7.makeVisible();
-        pata8.makeVisible();
-        pata71.makeVisible();
-        pata81.makeVisible();
-        cuerpo.makeVisible();
-        cabeza.makeVisible();
+        if(!isVisible){
+            for(Linea pata: patas){
+                pata.makeVisible();
+            }
+            cuerpo.makeVisible();
+            cabeza.makeVisible();
+            isVisible = true;
+        }
     }  
     
-        /**
+    /**
      * make spider invisible
      */
     public void makeInvisible(){
-        pata1.makeInvisible();
-        pata2.makeInvisible();
-        pata3.makeInvisible();
-        pata4.makeInvisible();
-        pata31.makeInvisible();
-        pata41.makeInvisible();
-        pata5.makeInvisible();
-        pata6.makeInvisible();
-        pata51.makeInvisible();
-        pata61.makeInvisible();
-        pata7.makeInvisible();
-        pata8.makeInvisible();
-        pata71.makeInvisible();
-        pata81.makeInvisible();
-        cuerpo.makeInvisible();
-        cabeza.makeInvisible();
-
+        if(isVisible){
+            for(Linea pata: patas){
+                pata.makeInvisible();
+            }
+            cuerpo.makeInvisible();
+            cabeza.makeInvisible();
+            isVisible = false;
+        }
     }  
     
     /**
-     * Cambiar el tamaño de la araña
-     * @param newSize el nuevo tamaño
+     * Change Spider Size
+     * @param newSize new size
      */
     public void changeSize(int newSize){
         cuerpo.changeSize((int)(cuerpo.getDiameter() + cuerpo.getDiameter()*((float)newSize/100)));
         cabeza.changeSize((int)(cabeza.getDiameter() + cabeza.getDiameter()*((float)newSize/100)));
-        reorPatasDelanteras1();
-        reorPatasTraseras1();
+        for(Linea pata: patas){
+            pata.makeInvisible();
+        }
+        reorPatas();
+        if(isVisible){
+            for(Linea pata: patas){
+                pata.makeVisible();
+            }
+        }
+        cuerpo.changeColor("red");
         reordenarCabeza();
-        cuerpo.makeVisible();
     }
     
-    // Otros métodos de la clase
-    private void reorPatasDelanteras1(){
-        pata1.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
-        cuerpo.getxPosition()+cuerpo.getDiameter()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        pata2.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
-        cuerpo.getxPosition()+cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        
-        pata3.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
-        cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20);
-        pata4.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
-        cuerpo.getxPosition()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20);
-        
-        pata31.newPoints(cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20,
-        cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/10,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        pata41.newPoints(cuerpo.getxPosition()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/20,
-        cuerpo.getxPosition()-cabeza.getDiameter()/10,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
+    /**
+     * Change spider's head color to indicate when the spider is sit
+     */
+    public void headChangeColor(String newColor){
+        cabeza.changeColor(newColor);
     }
-    
-    private void reorPatasTraseras1(){
-        pata5.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
-        cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8);
-        pata6.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
-        cuerpo.getxPosition()-cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8);
-        
-        pata51.newPoints(cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8,
-        cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        pata61.newPoints(cuerpo.getxPosition()-cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8,
-        cuerpo.getxPosition()-cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        
-        pata7.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
-        cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4);
-        pata8.newPoints((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
-        cuerpo.getxPosition()-cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4);
-        
-        pata71.newPoints(cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4,
-        cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/3,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-        pata81.newPoints(cuerpo.getxPosition()-cabeza.getDiameter()/2,cuerpo.getyPosition()+cuerpo.getDiameter()/4,
-        cuerpo.getxPosition()-cabeza.getDiameter()/3,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
-    }
-    
 }

@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Thread
+comment0.text=\r\n\ this\ class\ draws\ the\ initial\ web\ without\ bridges\r\n\ @author\ Cardenas-Cardona\r\n\ @version\ 1.0\r\n
+comment1.params=strands\ radio
+comment1.target=Thread(int,\ int)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Thread\r\n
+comment2.params=
+comment2.target=void\ setCordenateStrands()
+comment2.text=\r\n\ Establece\ las\ coordenadas\ de\ los\ puntos\ de\ inicio\ de\ las\ l\u00EDneas\ en\ la\ lista\ de\ l\u00EDneas\ (listaLineas)\r\n\ utilizando\ los\ valores\ de\ las\ coordenadas\ almacenadas\ en\ la\ lista\ 'lis'.\r\n\ Cada\ par\ de\ coordenadas\ (x,\ y)\ en\ 'lis'\ se\ utiliza\ para\ crear\ una\ nueva\ l\u00EDnea\ con\ origen\ en\ esas\ coordenadas\r\n\ y\ se\ agrega\ a\ la\ lista\ de\ l\u00EDneas.\r\n
+comment3.params=
+comment3.target=void\ makeVisible()
+comment3.text=\r\n\ make\ red\ visible\r\n
+comment4.params=
+comment4.target=void\ makeInvisible()
+comment4.text=\r\n\ make\ red\ invisible\r\n
+comment5.params=
+comment5.target=java.util.ArrayList\ getThreads()
+comment5.text=\r\n\ get\ all\ threads\ into\ a\ list\r\n\ @return\ a\ arraylist\ with\ all\ threads\r\n
+comment6.params=
+comment6.target=double\ getAngle()
+comment6.text=\r\n\ get\ the\ angle\ between\ each\ thread\r\n\ @return\ a\ the\ angle\r\n
+numComments=7
