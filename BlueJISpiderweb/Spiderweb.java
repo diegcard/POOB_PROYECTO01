@@ -213,7 +213,16 @@ public class Spiderweb{
             }isOk = false;
         }else{
             for(Bridge bridge : bridges.get(color)){
-                bridge.makeInvisible();   
+                bridge.makeInvisible();
+                int intStrand;
+                if(bridge.getDirection().equals("izq")){
+                    intStrand = bridge.getInitStrand()-1;
+                }else{
+                    intStrand = bridge.getInitStrand();
+                    if(intStrand == strands){intStrand = 0;}
+                } 
+                ArrayList<Bridge> hilo= puentesPorLineas.get(intStrand);
+                hilo.remove(bridge);
             }
             bridges.remove(color);
             isOk = true;
