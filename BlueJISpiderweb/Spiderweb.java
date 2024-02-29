@@ -14,11 +14,10 @@ public class Spiderweb{
     private boolean isVisible;  //Es visible la figura
     private int strands;        //Cantidad de telarañas
     private int strand;         //A la Telaraña que se debe mover
-    private int radio;          //Radio des las telarañas
-    private Thread hilos;       // Objeto telaraña sin puentes
-    private ArrayList<Linea> listaThreads;   //Lista de las lineas 
+    private double radio;       //Radio des las telarañas
+    private double angulo;      //Angulo 
+    private ArrayList<Thread> listaThreads;   //Lista de las lineas 
     private Spider spider;//Araña
-    private double angulo;//Angulo 
     private HashMap<String,ArrayList<Bridge>> bridges;
     private static final int centroImagenX = 640;
     private static final int centroImagenY = 360;
@@ -26,7 +25,7 @@ public class Spiderweb{
     private HashMap<String,Circle> spots;
     private boolean isOk = true;
     private HashMap<Integer,ArrayList<Bridge>> puentesPorLineas;
-    private int[] spidertLastPath;
+    private ArrayList<Integer> spidertLastPath;
     private ArrayList<Linea> spiderLastRoute;
     
     
@@ -39,19 +38,61 @@ public class Spiderweb{
      * @param radio El radio de la telaraña desde el centro.
      */
     public Spiderweb(int strands, int radio){
-        this.hilos = new Thread(strands, radio);
-        this.angulo = hilos.getAngle();
-        this.listaThreads = hilos.getThreads();   
+        this.strands = strands;
+        this.angulo = 360/strands;
+        this.radio = radio;
+        this.listaThreads = new ArrayList<Thread>(); 
+        newWeb();
         this.bridges = new HashMap<String,ArrayList<Bridge>>();
         this.spots = new HashMap<String,Circle>();
-        this.radio = radio;
-        this.strands = strands;
         this.spider = new Spider();
         spider.moveTo(Spiderweb.getPoscenterImage()[0]-spider.getPosx(),Spiderweb.getPoscenterImage()[1]-spider.getPosy());
         this.SpiderSit = false;
         this.puentesPorLineas = new HashMap<Integer,ArrayList<Bridge>>();
-        spidertLastPath = new int[2];
+        spidertLastPath = new ArrayList<Integer>();
         this.spiderLastRoute = new ArrayList<Linea>();
+    }
+    
+    /**
+     * create the web
+     */
+    private void newWeb(){
+        double intervalo = 0;
+        while (intervalo < 360){
+            Thread temp= new Thread(Math.round(radio * Math.cos(Math.toRadians(intervalo))),Math.round(radio * Math.sin(Math.toRadians(intervalo))));
+            listaThreads.add(temp);
+            intervalo+=angulo;
+        }
+    }
+    
+    /**
+     * enlarges the web
+     * @param the porcentage value to enlarge
+     */
+    public void enlarge(int percentage){
+        if(percentage < 0){
+            if(isVisible){JOptionPane.showMessageDialog(null, "Solo puedes alargar la telaraña");}isOk = false;
+        }else{
+            for(Thread hilo :listaThreads){
+                hilo.changeSize(percentage);
+            }
+            this.radio = getDistance(centroImagenX, centroImagenY, listaThreads.get(0).getX2(),listaThreads.get(0).getY2());
+            if(isVisible){
+                spider.makeInvisible();
+                spider.makeVisible();
+            }
+            relocateSpots();
+            isOk = true;
+            }
+    }
+    
+    //Reubica los spots cuando se modifica su radio
+    private void relocateSpots(){
+        for(Circle spot :spots.values()){
+            int strandi = spot.getStrand()-1;
+            Thread hilo = listaThreads.get(strandi);
+            spot.relocate((int)hilo.getX2(),(int)hilo.getY2());
+        }
     }
     
     /**
@@ -59,7 +100,9 @@ public class Spiderweb{
      */
     public void makeVisible(){
         if(!isVisible){
-            hilos.makeVisible();
+            for(Thread hilo:listaThreads){
+                hilo.makeVisible();
+            }
             spider.makeVisible();
             for(String color: bridges.keySet()){
                 for(Bridge bridge : bridges.get(color)){
@@ -79,7 +122,9 @@ public class Spiderweb{
      */
     public void makeInvisible(){
         if(isVisible){
-            hilos.makeInvisible();
+            for(Thread hilo:listaThreads){
+                hilo.makeInvisible();
+            }
             spider.makeInvisible();
             for(String color: bridges.keySet()){
                 for(Bridge bridge : bridges.get(color)){
@@ -242,7 +287,7 @@ public class Spiderweb{
             if(isVisible){JOptionPane.showMessageDialog(null, "Este spot ya esxite");
             }isOk = false;
         }else{
-            Linea hilo = listaThreads.get(strand-1);
+            Thread hilo = listaThreads.get(strand-1);
             Circle spot = new Circle((int)hilo.getX2(),(int)hilo.getY2());
             spot.changeColor(color);
             spot.makeVisible();
@@ -347,7 +392,7 @@ public class Spiderweb{
         }
     }
 
-    // añade a la lista de ultima ruta una linea y la colorea de azul    
+    // añade a la lista de ultima ruta una linea y la colorea de rojo    
     private void addLastRoute(float x1, float y1, float x2, float y2){
         Linea ruta = new Linea(x1,y1,x2,y2);
         ruta.changeColor("red");
@@ -497,7 +542,7 @@ public class Spiderweb{
      * return the last position of the spider
      * @return a Array with the x and y coordenates
      */
-    private int[] spiderLastPath(){
+    private ArrayList<Integer> spiderLastPath(){
         return spidertLastPath;
     }
     
@@ -583,7 +628,6 @@ public class Spiderweb{
     public void finish(){
          this.makeInvisible();
          this.listaThreads = null;
-         this.hilos = null;
          this.spider = null;
          this.bridges = null;
          this.spots = null;

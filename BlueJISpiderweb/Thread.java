@@ -1,4 +1,9 @@
 import java.util.*;
+import javax.swing.JOptionPane;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * this class draws the initial web without bridges
@@ -6,74 +11,99 @@ import java.util.*;
  * @version 1.0
  */
 public class Thread{
-    private boolean isVisible;
-    private Linescoordinates lista;
-    private ArrayList<Linea> listaHilos;   //Lista de las lineas 
-    private List<Pair<Double, Double>> lis;
-    private double angulo;
+    private Linea thread;
+    private boolean isVisible = false;
+
+    /**
+     * Constructor for objects of class Thread with the center
+     */
+    public Thread(float x2, float y2){
+        this.thread = new Linea(x2,y2);
+    }
+    
     /**
      * Constructor for objects of class Thread
      */
-    public Thread(int strands, int radio){
-        this.lista = new Linescoordinates(strands, radio);
-        this.angulo = lista.getAngle();
-        this.lis = lista.getlista();
-        this.listaHilos = new ArrayList<Linea>();
-        setCordenateStrands();
+    public Thread(float x1, float y1,float x2, float y2){
+        this.thread = new Linea(x1,y1,x2,y2);
     }
     
     /**
-     * Establece las coordenadas de los puntos de inicio de las líneas en la lista de líneas (listaLineas)
-     * utilizando los valores de las coordenadas almacenadas en la lista 'lis'.
-     * Cada par de coordenadas (x, y) en 'lis' se utiliza para crear una nueva línea con origen en esas coordenadas
-     * y se agrega a la lista de líneas.
+     * Updates the coordinates of the thread endpoints with the new specified coordinates
+     *
+     * @param newx1 The new x coordinate of the first end of the line.
+     * @param newy1 The new y coordinate of the first end of the line.
+     * @param newx2 The new x coordinate of the second end of the line.
+     * @param newy2 The new y coordinate of the second end of the line.
      */
-    private void setCordenateStrands(){
-        for(int i = 0; i < lis.size(); i++){
-            float x = (float)lis.get(i).getA();
-            float y = (float)lis.get(i).getB();
-            Linea temp = new Linea(x,y);
-            listaHilos.add(temp);
-        }
+    public void newPoints(float newx1, float newy1,float newx2, float newy2){
+        this.thread.newPoints(newx1,newy1,newx2,newy2);
     }
     
     /**
-     * make red visible
+     * get the x1 coordenate
+     * 
+     * @return the value of the x1 coordenate
+     */
+    public float getX1(){
+        return thread.getX1();
+    }
+    
+    /**
+     * get the x2 coordenate
+     * 
+     * @return the value of the x2 coordenate
+     */
+    public float getX2(){
+        return thread.getX2();
+    }
+    
+    /**
+     * get the y1 coordenate
+     * 
+     * @return the value of the y1 coordenate
+     */
+    public float getY1(){
+        return thread.getY1();
+    }
+    
+    /**
+     * get the y2 coordenate
+     * 
+     * @return the value of the y2 coordenate
+     */
+    public float getY2(){
+        return thread.getY2();
+    }
+    
+    /**
+     * Make this Line visible. If it was already visible, do nothing.
      */
     public void makeVisible(){
         if(!isVisible){
-            for(Linea hilo: listaHilos){
-                hilo.makeVisible();
-            }
+            thread.makeVisible();
             isVisible = true;
         }
     }
     
     /**
-     * make red invisible
+     * Make this Line invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible(){
         if(isVisible){
-            for(Linea hilo: listaHilos){
-                hilo.makeInvisible();
-            }
+            thread.makeInvisible();
             isVisible = false;
         }
     }
     
     /**
-     * get all threads into a list
-     * @return a arraylist with all threads
+     * Change the size of a thread
+     * @param newSize A new percentage value
      */
-    public ArrayList<Linea> getThreads(){
-        return listaHilos;
+    public void changeSize(int newSize){
+        float x2 = this.getX2()-Spiderweb.getPoscenterImage()[0] + (this.getX2()-Spiderweb.getPoscenterImage()[0])*(float)newSize/100;
+        float y2 = -(this.getY2()-Spiderweb.getPoscenterImage()[1]) -(this.getY2()-Spiderweb.getPoscenterImage()[1])*(float)newSize/100;
+        newPoints(getX1(),getY1(),x2+Spiderweb.getPoscenterImage()[0],Spiderweb.getPoscenterImage()[1]-y2);
     }
     
-    /**
-     * get the angle between each thread
-     * @return a the angle
-     */
-    public double getAngle(){
-        return angulo;
-    }
 }

@@ -37,6 +37,20 @@ public class Circle{
     }    
     
     /**
+     * move the circle to new coordenates
+     * @param xPos coordenate
+     * @param yPos coordenate
+     */
+    public void relocate(int xPos, int yPos){
+        erase();
+        xPosition = xPos;
+        yPosition = yPos;
+        if(isVisible){
+            draw();
+        }
+    }
+    
+    /**
      * if a circle is a spot to sleep, we are gonna save the Strand where the spot is
      */
     public void setStrand(int newStrand){

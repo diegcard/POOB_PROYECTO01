@@ -10,6 +10,7 @@ public class Bridge{
     private boolean isVisible = false;
     private int initStrand;
     private String direction;
+    private int distance;
 
     /**
      * Constructor for objects of class Bridge
@@ -127,5 +128,23 @@ public class Bridge{
      */
     public void setDirection(String newDirection){
        this.direction = newDirection;
+    }
+    
+    /**
+     * Gets the distance of the bridge from the center.
+     * (der o izq)
+     * @return distance of the bridge from the center.
+     */
+    public int getDistance(){
+        return distance;
+    }
+    
+    /**
+     * Sets the distance of the bridge from the center.
+     * 
+     * @param newInit
+     */
+    public void setDistance(int newDistance){
+       this.distance = newDistance;
     }
 }
