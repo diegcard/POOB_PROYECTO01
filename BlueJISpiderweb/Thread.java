@@ -41,6 +41,16 @@ public class Thread{
     }
     
     /**
+     * Updates the coordinates of the thread endpoints with the new specified coordinates
+     *
+     * @param newx2 The new x coordinate of the first end of the line.
+     * @param newy2 The new y coordinate of the first end of the line.
+     */
+    public void newPoints(float newx2, float newy2){
+        this.thread.newPoints(newx2,newy2);
+    }
+    
+    /**
      * get the x1 coordenate
      * 
      * @return the value of the x1 coordenate

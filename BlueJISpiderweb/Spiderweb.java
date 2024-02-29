@@ -21,7 +21,6 @@ public class Spiderweb{
     private HashMap<String,ArrayList<Bridge>> bridges;
     private static final int centroImagenX = 640;
     private static final int centroImagenY = 360;
-    private boolean SpiderSit;
     private HashMap<String,Circle> spots;
     private boolean isOk = true;
     private HashMap<Integer,ArrayList<Bridge>> puentesPorLineas;
@@ -39,7 +38,7 @@ public class Spiderweb{
      */
     public Spiderweb(int strands, int radio){
         this.strands = strands;
-        this.angulo = 360/strands;
+        this.angulo = (double)360/strands;
         this.radio = radio;
         this.listaThreads = new ArrayList<Thread>(); 
         newWeb();
@@ -47,14 +46,13 @@ public class Spiderweb{
         this.spots = new HashMap<String,Circle>();
         this.spider = new Spider();
         spider.moveTo(Spiderweb.getPoscenterImage()[0]-spider.getPosx(),Spiderweb.getPoscenterImage()[1]-spider.getPosy());
-        this.SpiderSit = false;
         this.puentesPorLineas = new HashMap<Integer,ArrayList<Bridge>>();
         spidertLastPath = new ArrayList<Integer>();
         this.spiderLastRoute = new ArrayList<Linea>();
     }
     
     /**
-     * create the web
+     * draw the web
      */
     private void newWeb(){
         double intervalo = 0;
@@ -63,6 +61,42 @@ public class Spiderweb{
             listaThreads.add(temp);
             intervalo+=angulo;
         }
+    }
+    
+    /**
+     * add a strand in the web
+     */
+    public void addStrand(){
+        if((int)getDistanceCenterSpider() != 0){
+                spiderRetroceder();
+            }
+        delRoute();
+        double intervalo = 0;
+        this.strands +=1;
+        this.angulo = (double)360/strands;
+        for(Thread hilo:listaThreads){
+            hilo.newPoints(Math.round(radio * Math.cos(Math.toRadians(intervalo))),Math.round(radio * Math.sin(Math.toRadians(intervalo))));
+            intervalo +=angulo;
+        }
+        listaThreads.add(new Thread(Math.round(radio * Math.cos(Math.toRadians(intervalo))),Math.round(radio * Math.sin(Math.toRadians(intervalo)))));
+        for(String color:bridges.keySet()){
+            relocateBridge(color,bridges.get(color).get(0).getDistance());
+        } relocateSpots();
+        makeInvisible();
+        makeVisible();
+    }
+    
+    /**
+     * list all bridges that aren´t used yet
+     */
+    public String[] unusedBrisges(){
+        ArrayList<String> noUsados = new ArrayList<>();
+        for(String color : bridges.keySet()){
+            if(!bridges.get(color).get(0).isUsed()){
+                noUsados.add(color);
+            }
+        }
+        return noUsados.toArray(new String[0]);
     }
     
     /**
@@ -176,19 +210,19 @@ public class Spiderweb{
      * @param firstStrand initial thread where the bridge will be located
      **/
     public void addBridge(String color, int distance, int firstStrand){
-        if(distance > radio){
-            if(isVisible){JOptionPane.showMessageDialog(null, "No se puede poder un puente a una distancia mayor del limite de las arañas");}isOk = false;
-        }else if(firstStrand > strands){
-            if(isVisible){JOptionPane.showMessageDialog(null, "No se puede poder un puente en un hilo que no existe");}isOk = false;
-        }else if(bridges.containsKey(color)){
+        if(distance > radio || firstStrand > strands){
+            if(isVisible){JOptionPane.showMessageDialog(null, "Oops, algo salió mal, revisa las entradas");}isOk = false;
+            }else if(bridges.containsKey(color)){
             if(isVisible){JOptionPane.showMessageDialog(null, "Ya existe un puente de dicho color");}isOk = false;
         }else{
             Bridge bridge = createBridge(firstStrand, distance, color);
             Bridge bridge2 = createBridge2(firstStrand, distance, color);
             addBridgeInStrand(bridge,firstStrand-1);
             bridge.setDirection("izq");
+            bridge.setDistance(distance);
             addBridgeInStrand(bridge2,firstStrand);
             bridge2.setDirection("der");
+            bridge2.setDistance(distance);
             ArrayList<Bridge> puente = new ArrayList<Bridge>();
             puente.add(bridge);
             puente.add(bridge2);
@@ -313,19 +347,6 @@ public class Spiderweb{
         }
     }
     
-    /**
-     * changes the state of the spider from standing to sitting and from sitting to standing
-     */
-    public void spiderSit(){
-        if(!SpiderSit){
-            this.SpiderSit = true;
-            spider.headChangeColor("blue");
-        }else{
-            this.SpiderSit = false;
-            spider.headChangeColor("red");
-        }isOk = true;
-    }
-    
     //Haya la distancia entre dos puntos
     private double getDistance(float x1, float y1, float x2, float y2){
         double distance = Math.sqrt(Math.pow((double)x2-x1,2)+Math.pow((double)y2-y1,2));
@@ -350,16 +371,17 @@ public class Spiderweb{
     /**
      * Specify which thread you want the spider to start its journey on.
      */
-    public void spiderStart(int strand){
-        if((int)getDistanceCenterSpider() != 0){
-            if(isVisible){JOptionPane.showMessageDialog(null, "No puedes especificar en que hilo quieres sentar la araña si ella no está en el centro");
-            }isOk = false;
-        }else if(strand > strands){
+    public void spiderSit(int strand){
+        if(strand > strands){
             if(isVisible){JOptionPane.showMessageDialog(null, "No puedes sentar la araña en un hilo inexistente");
             }isOk = false;
         }else{
+            if((int)getDistanceCenterSpider() != 0){
+                spiderRetroceder();
+            }
+            spider.headChangeColor("blue");
             this.strand = strand;
-            isOk = true;
+            isOk = true;        
         }
     }
     
@@ -439,6 +461,7 @@ public class Spiderweb{
         addLastRoute(spider.getPosx(),spider.getPosy(),puenteCercano.getX2(),puenteCercano.getY2());
         spider.moveTo((int)X2, (int)Y2);
         visibleRoute();
+        puenteCercano.use();
     }
     
     //reubicar hilo actual
@@ -461,24 +484,20 @@ public class Spiderweb{
     
     //mueve la araña automáticamente por los puentes
     private void spiderWalk(){
-        if(SpiderSit){
-            if(isVisible){JOptionPane.showMessageDialog(null, "la araña está sentada, levantala!");
-            }isOk = false;
-        }else{
-            delRoute();
-            int hiloActual = strand;
-            while(!compararConMargenError(getDistanceCenterSpider(),radio,5)){
-                //puente más proximo a la araña
-                Bridge puenteCercano =findCLoserBridge(hiloActual-1);
-                if(puenteCercano == null){
-                    moveEsquina(hiloActual);
-                }else{
-                    MoverYpasarPuente(puenteCercano);
-                    hiloActual = strandActual(puenteCercano,hiloActual);
-                }
+        delRoute();
+        int hiloActual = strand;
+        while(!compararConMargenError(getDistanceCenterSpider(),radio,5)){
+            //puente más proximo a la araña
+            Bridge puenteCercano =findCLoserBridge(hiloActual-1);
+            if(puenteCercano == null){
+                moveEsquina(hiloActual);
+            }else{
+                MoverYpasarPuente(puenteCercano);
+                hiloActual = strandActual(puenteCercano,hiloActual);
             }
-            this.strand =hiloActual;
-        } isOk = true;
+        }
+        this.strand =hiloActual;
+        isOk = true;
     }
     
     //puente más cercano a la araña en un hilo para retroceder
@@ -510,32 +529,19 @@ public class Spiderweb{
     
     //Hace retroceder la araña hasta el centro
     private void spiderRetroceder(){
-        if(SpiderSit){
-            if(isVisible){JOptionPane.showMessageDialog(null, "la araña está sentada, levantala!");
-            }isOk = false;
-        }else{
-            delRoute();
-            int hiloActual = strand;
-            while(!compararConMargenError(getDistanceCenterSpider(),0,5)){
-                //puente más proximo a la araña
-                Bridge puenteCercano =findCLoserBridgeRet(hiloActual-1);
-                if(puenteCercano == null){
-                    moveCentro();
-                }else{
-                    MoverYpasarPuente(puenteCercano);
-                    hiloActual = strandActual(puenteCercano,hiloActual);
-                }
+        delRoute();
+        int hiloActual = strand;
+        while(!compararConMargenError(getDistanceCenterSpider(),0,5)){
+            //puente más proximo a la araña
+            Bridge puenteCercano =findCLoserBridgeRet(hiloActual-1);
+            if(puenteCercano == null){
+                moveCentro();
+            }else{
+                MoverYpasarPuente(puenteCercano);
+                hiloActual = strandActual(puenteCercano,hiloActual);
             }
-        } isOk = true;
-    }
-    
-    /**
-     * If the spider is sit
-     * @return SpiderSit a boolean
-     */
-    public boolean isSpiderSit(){
+        }
         isOk = true;
-        return SpiderSit;
     }
     
     /**

@@ -11,6 +11,7 @@ public class Bridge{
     private int initStrand;
     private String direction;
     private int distance;
+    private boolean used;
 
     /**
      * Constructor for objects of class Bridge
@@ -19,6 +20,14 @@ public class Bridge{
         this.bridge = new Linea(x1,y1,x2,y2);
     }
 
+    public boolean isUsed(){
+        return used;
+    }
+    
+    public void use(){
+        used = true;
+    }
+    
     /**
      * Updates the coordinates of the bridge endpoints with the new specified coordinates
      *

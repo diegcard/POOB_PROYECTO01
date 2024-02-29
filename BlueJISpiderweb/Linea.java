@@ -71,6 +71,20 @@ public class Linea{
     }
     
     /**
+     * Actualiza las coordenadas de los puntos extremos finales de la línea con las nuevas coordenadas especificadas,
+     * borrando la línea actual y dibujando una nueva línea con las coordenadas actualizadas.
+     *
+     * @param newx2 La nueva coordenada x del segundo extremo de la línea.
+     * @param newy2 La nueva coordenada y del segundo extremo de la línea.
+     */
+    public void newPoints(float newx2, float newy2){
+        erase();
+        this.x2 = x1+newx2;
+        this.y2 = y1-newy2;
+        draw();
+    }
+    
+    /**
      * Cambia la posición inicial de la línea a las coordenadas especificadas.
      *
      * @param x1 La nueva coordenada x del primer extremo de la línea.
