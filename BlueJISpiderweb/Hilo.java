@@ -10,21 +10,21 @@ import java.util.Map;
  * @author Cardenas-Cardona
  * @version 1.0
  */
-public class Thread{
+public class Hilo{
     private Linea thread;
     private boolean isVisible = false;
 
     /**
      * Constructor for objects of class Thread with the center
      */
-    public Thread(float x2, float y2){
+    public Hilo(float x2, float y2){
         this.thread = new Linea(x2,y2);
     }
     
     /**
      * Constructor for objects of class Thread
      */
-    public Thread(float x1, float y1,float x2, float y2){
+    public Hilo(float x1, float y1,float x2, float y2){
         this.thread = new Linea(x1,y1,x2,y2);
     }
     

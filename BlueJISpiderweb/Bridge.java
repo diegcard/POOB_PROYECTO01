@@ -20,12 +20,20 @@ public class Bridge{
         this.bridge = new Linea(x1,y1,x2,y2);
     }
 
+    /**
+     * Checks if the briddge is currently in use
+     *
+     * @return true if the bridge is in use, false otherwise
+     */
     public boolean isUsed(){
         return used;
     }
-    
+
+    /**
+     * Sets the value of the used variable to true
+     */
     public void use(){
-        used = true;
+        this.used = true;
     }
     
     /**
@@ -115,10 +123,10 @@ public class Bridge{
     /**
      * sets the value of the thread where the bridge starts
      * 
-     * @param newInit
+     * @param newInitStrand the new value of initStrand.
      */
     public void setInitStrand(int newInitStrand){
-       this.initStrand = newInitStrand;
+        this.initStrand = newInitStrand;
     }
     
     /**
@@ -133,10 +141,10 @@ public class Bridge{
     /**
      * Sets the value of the direction of where a bridge is heading.
      * (der o izq)
-     * @param newInit
+     * @param newDirection the new value of direction.
      */
     public void setDirection(String newDirection){
-       this.direction = newDirection;
+        this.direction = newDirection;
     }
     
     /**
@@ -151,9 +159,9 @@ public class Bridge{
     /**
      * Sets the distance of the bridge from the center.
      * 
-     * @param newInit
+     * @param newDistance the new value of distance.
      */
     public void setDistance(int newDistance){
-       this.distance = newDistance;
+        this.distance = newDistance;
     }
 }

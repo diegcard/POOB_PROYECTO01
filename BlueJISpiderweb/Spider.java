@@ -8,8 +8,8 @@ import java.util.*;
  * @author Diego Cárdenas y Sebastián Cardona
  * @version 1.0
  */
-public class Spider
-{
+public class Spider {
+
     private Circle cabeza;
     private Circle cuerpo;
     private ArrayList<Linea> patas;
@@ -19,8 +19,7 @@ public class Spider
      * Class spider contructor
      * Init the new Spider with its all components
      */
-    public Spider()
-    {
+    public Spider() {
         this.cabeza = new Circle();
         this.cuerpo = new Circle();
         this.patas = new ArrayList<Linea>();
@@ -45,24 +44,32 @@ public class Spider
         return cuerpo.getyPosition()+cuerpo.getDiameter()/2;
     }
 
-    // make the spider
+    /**
+     * Initializes the spider by reorganizing its legs and setting the color of its body and head to red.
+     * This method also repositions the head of the spider.
+     */
     private void initDrawSpider(){
         reorPatas();
         cuerpo.changeColor("red");
         cabeza.changeColor("red");
         reordenarCabeza();
     }
-    
-     // Métodos privados para reorganizar las patas delanteras y traseras
-    
-    // Método para reordenar todas las patas juntas
+
+    /**
+     * Clears the current legs of the spider and reorganizes them.
+     * This method calls the methods to reorganize the front and rear legs of the spider.
+     */
     private void reorPatas(){
         patas.clear();
         reorPatasDelanteras();
         reorPatasTraseras();
     }
-    
-    // Método para mover las patas traseras de la araña
+
+    /**
+     * Reorganizes the front legs of the spider.
+     * This method creates and positions the front legs of the spider based on the current position and size of the spider's body and head.
+     * Each leg is represented by a Linea object and is added to the patas ArrayList.
+     */
     private void reorPatasDelanteras(){
         Linea pata1 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()-cabeza.getDiameter()/6,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
@@ -84,7 +91,11 @@ public class Spider
         patas.add(pata41);
     }
     
-    // Método para mover las patas delanteras de la araña
+    /**
+     * Reorganizes the rear legs of the spider.
+     * This method creates and positions the rear legs of the spider based on the current position and size of the spider's body and head.
+     * Each leg is represented by a Linea object and is added to the patas ArrayList.
+     */
     private void reorPatasTraseras(){
         Linea pata5 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter()/2),(cuerpo.getyPosition() + cuerpo.getDiameter()/2),
         cuerpo.getxPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4,cuerpo.getyPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/8);
@@ -107,14 +118,23 @@ public class Spider
         cuerpo.getxPosition()-cabeza.getDiameter()/3,cuerpo.getyPosition()+cuerpo.getDiameter()+cabeza.getDiameter()/4);
         patas.add(pata71);patas.add(pata81);
     }
-    // Otros métodos de la clase
-    
+
+    /**
+     * Reorganizes the head of the spider.
+     * This method repositions the head of the spider based on the current position and size of the spider's body.
+     */
     private void reordenarCabeza(){
         cabeza.changeSize(cuerpo.getDiameter()/3);
         cabeza.moveHorizontal(cuerpo.getxPosition()+cuerpo.getDiameter()/2-cabeza.getDiameter()/2-cabeza.getxPosition());
         cabeza.moveVertical(cuerpo.getyPosition()+cuerpo.getDiameter()-cabeza.getDiameter()/2-cabeza.getyPosition());
     }
-    
+
+    /**
+     * Move the spider's legs to a new position.
+     *
+     * @param x The new x coordinate of the legs.
+     * @param y The new y coordinate of the legs.
+     */
     private void movePatas(int x, int y){
         for(Linea pata: patas){
             pata.moveHorizontal(x);

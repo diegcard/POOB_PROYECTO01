@@ -1,8 +1,8 @@
 #BlueJ class context
-comment0.target=Thread
+comment0.target=Hilo
 comment0.text=\r\n\ this\ class\ draws\ the\ initial\ web\ without\ bridges\r\n\ @author\ Cardenas-Cardona\r\n\ @version\ 1.0\r\n
 comment1.params=x2\ y2
-comment1.target=Thread(float,\ float)
+comment1.target=Hilo(float,\ float)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Thread\ with\ the\ center\r\n
 comment10.params=
 comment10.target=void\ makeInvisible()
@@ -11,7 +11,7 @@ comment11.params=newSize
 comment11.target=void\ changeSize(int)
 comment11.text=\r\n\ Change\ the\ size\ of\ a\ thread\r\n\ @param\ newSize\ A\ new\ percentage\ value\r\n
 comment2.params=x1\ y1\ x2\ y2
-comment2.target=Thread(float,\ float,\ float,\ float)
+comment2.target=Hilo(float,\ float,\ float,\ float)
 comment2.text=\r\n\ Constructor\ for\ objects\ of\ class\ Thread\r\n
 comment3.params=newx1\ newy1\ newx2\ newy2
 comment3.target=void\ newPoints(float,\ float,\ float,\ float)
