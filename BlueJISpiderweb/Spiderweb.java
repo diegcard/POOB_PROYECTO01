@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Aqui se hará el simulador del Spiderweb
@@ -25,6 +26,7 @@ public class Spiderweb{
     private boolean isOk = true;
     private HashMap<Integer,ArrayList<Bridge>> puentesPorLineas;
     private ArrayList<Integer> spidertLastPath;
+    private int[] spidertLastPathfin;
     private ArrayList<Linea> spiderLastRoute;
     
     
@@ -136,6 +138,11 @@ public class Spiderweb{
     }
 
     //Terminar metodo
+
+    /**
+     * This method is used to return the spots where it is possible to reach using bridges and threads.
+     * @return An array of Strings representing the colors of the spots that can be reached.
+     */
     public String[] reachablesSpots(){
         ArrayList<String> noUsados = new ArrayList<>();
         for(String color : spots.keySet()) {
@@ -621,15 +628,19 @@ public class Spiderweb{
         delRoute();
         int hiloActual = strand;
         while(!compararConMargenError(getDistanceCenterSpider(),radio,5)){
+            //spidertLastPath.add(strand);
             Bridge puenteCercano =findCLoserBridge(hiloActual-1);
             if(puenteCercano == null){
                 moveEsquina(hiloActual);
+                spidertLastPath.add(strand);
             }else{
                 MoverYpasarPuente(puenteCercano);
                 hiloActual = strandActual(puenteCercano,hiloActual);
+                spidertLastPath.add(hiloActual);
             }
         }
         this.strand = hiloActual;
+        //spidertLastPath.add(strand);
         isOk = true;
     }
 
@@ -687,8 +698,12 @@ public class Spiderweb{
      * Return the last position of the spider
      * @return ArrayList with the x and y coordinates
      */
-    public ArrayList<Integer> spiderLastPath(){
-        return spidertLastPath;
+    public int[] spiderLastPath(){
+        spidertLastPathfin = new int[spidertLastPath.size()];
+        for (int i = 0; i < spidertLastPath.size(); i++) {
+            spidertLastPathfin[i] = spidertLastPath.get(i);
+        }
+        return spidertLastPathfin;
     }
     
     /**

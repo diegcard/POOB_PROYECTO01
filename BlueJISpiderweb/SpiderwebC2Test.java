@@ -21,8 +21,8 @@ public class SpiderwebC2Test {
         spiderweb.addSpot("red", 1);
         spiderweb.addSpot("blue", 5);
         //Añadir Puentes
-        spiderweb.addBridge("green", 100, 2);
-        spiderweb.addBridge("blue", 300, 3);
+        spiderweb.addBridge("green", 100, 1);
+        spiderweb.addBridge("blue", 300, 4);
     }
 
     @Test
@@ -145,7 +145,11 @@ public class SpiderwebC2Test {
 
     @Test
     public void accordingCCShoulSpiderLastPath(){
-        System.out.println(spiderweb.spiderLastPath());
+        spiderweb.addBridge("red", 200, 2);
+        spiderweb.spiderSit(1);
+        spiderweb.spiderWalk(true);
+        int[]   valorDevolver = {2, 3, 1};
+        assertArrayEquals(spiderweb.spiderLastPath(), valorDevolver);
     }
 
     @Test
@@ -176,7 +180,7 @@ public class SpiderwebC2Test {
         int[] valorDevolver = {1, 2};
         spiderweb.addBridge("red", 200, 1);
         assertArrayEquals(spiderweb.bridge("red"), valorDevolver);
-        int[] valorDevolver2 = {3, 4};
+        int[] valorDevolver2 = {4, 5};
         assertArrayEquals(spiderweb.bridge("blue"), valorDevolver2);
     }
 
@@ -185,7 +189,7 @@ public class SpiderwebC2Test {
         int[] valorDevolver = {1, 2};
         spiderweb.addBridge("red", 2, 1);
         assertArrayEquals(spiderweb.bridge("red"), valorDevolver);
-        int[] valorDevolver2 = {3, 4};
+        int[] valorDevolver2 = {4, 5};
         assertArrayEquals(spiderweb.bridge("blue"), valorDevolver2);
     }
 
@@ -227,7 +231,7 @@ public class SpiderwebC2Test {
         spiderweb.addBridge("red", 150, 1);
         spiderweb.spiderSit(1);
         spiderweb.spiderWalk(true);
-        String[] valorDevolver = {"green", "blue"};
+        String[] valorDevolver = {"red", "blue"};
         assertArrayEquals(spiderweb.unusedBrisges(), valorDevolver);
     }
 
@@ -265,6 +269,12 @@ public class SpiderwebC2Test {
         spiderweb.makeInvisible();
         spiderweb.makeInvisible();
         assertFalse(spiderweb.ok());
+    }
+
+    @Test
+    public void accordingCCShoulFinish(){
+        spiderweb.finish();
+        assertTrue(spiderweb.ok());
     }
 
 
