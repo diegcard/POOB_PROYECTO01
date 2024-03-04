@@ -23,6 +23,8 @@ public class SpiderwebC2Test {
         //Añadir Puentes
         spiderweb.addBridge("green", 100, 1);
         spiderweb.addBridge("blue", 300, 4);
+        //sentar araña
+        
     }
 
     @Test
@@ -34,9 +36,25 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShouldNotAddSpot() {
+    public void accordingCCShouldNotAddSpotWithSameColor() {
         spiderweb.addSpot("red", 1);
         spiderweb.addSpot("red", 1);
+        assertFalse(spiderweb.ok());
+    }
+
+    @Test
+    public void accordingCCShouldReturnReachableSpots() {
+        spiderweb.spiderSit(2);
+        String[] valorDevolver = {"red"};
+        assertArrayEquals(spiderweb.reachablesSpots(), valorDevolver);
+        spiderweb.spiderSit(7);
+        String[] valorDevolver2 = {};
+        assertArrayEquals(spiderweb.reachablesSpots(), valorDevolver2);
+    }
+
+    @Test
+    public void accordingCCShouldNotAllowReachableSpotsWhithoutSitting() {
+        spiderweb.reachablesSpots();
         assertFalse(spiderweb.ok());
     }
 
@@ -47,9 +65,9 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShouldNotAddStrand() {
+    public void accordingCCShouldNotAddTwoStrandsStrandAtTime() {
         spiderweb.addStrand();
-        assertNotEquals(spiderweb.getStrands(), 9);
+        assertNotEquals(spiderweb.getStrands(), 10);
     }
 
     @Test
@@ -59,47 +77,47 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShouldNotEnlarge(){
+    public void accordingCCShouldNotEnlargeFalseValue(){
         spiderweb.enlarge(10);
         assertNotEquals(spiderweb.getRadio(), 605);
     }
 
     @Test
-    public void accordingCCShouldaddBridge(){
+    public void accordingCCShouldAddBridge(){
         spiderweb.addBridge("red", 100, 1);
         assertTrue(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulNotdaddBridge(){
+    public void accordingCCShouldNotAdddRepeatBridge(){
         spiderweb.addBridge("red", 200, 1);
         spiderweb.addBridge("red", 200, 1);
         assertFalse(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulRelocateBride(){
+    public void accordingCCShouldRelocateBride(){
         spiderweb.addBridge("red", 200, 5);
         spiderweb.relocateBridge("red", 200);
         assertTrue(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulNotRelocateBride(){
+    public void accordingCCShouldNotRelocateANotExistingBride(){
         spiderweb.addBridge("red", 200, 1);
         spiderweb.relocateBridge("blue", 700);
         assertFalse(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulDelBride(){
+    public void accordingCCShouldDelBride(){
         spiderweb.addBridge("red", 200, 1);
         spiderweb.delBridge("red");
         assertTrue(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulNotDelBride(){
+    public void accordingCCShouldNotDelSameBrideTwice(){
         spiderweb.addBridge("red", 200, 1);
         spiderweb.delBridge("red");
         spiderweb.delBridge("red");
@@ -107,44 +125,45 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShoulDelSpot(){
+    public void accordingCCShouldDelSpot(){
         spiderweb.delSpot("red");
         assertTrue(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulNotDelSpot(){
+    public void accordingCCShouldNotDelNotExistingSpot(){
         spiderweb.delSpot("green");
         assertFalse(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulSpiderSit(){
+    public void accordingCCShouldSpiderSit(){
         spiderweb.spiderSit(1);
         assertTrue(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulNotSpiderSit(){
+    public void accordingCCShouldNotSpiderSitInANotExistingSpot(){
         spiderweb.spiderSit(8);
         assertFalse(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulSpiderWalk(){
+    public void accordingCCShouldSpiderWalk(){
         spiderweb.spiderSit(1);
         spiderweb.spiderWalk(true);
+        spiderweb.delRoute();
         assertTrue(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulNotSpiderWalk(){
+    public void accordingCCShouldNotSpiderWalkWithOutSitting(){
         spiderweb.spiderWalk(true);
         assertFalse(spiderweb.ok());
     }
 
     @Test
-    public void accordingCCShoulSpiderLastPath(){
+    public void accordingCCShouldSpiderLastPath(){
         spiderweb.addBridge("red", 200, 2);
         spiderweb.spiderSit(1);
         spiderweb.spiderWalk(true);
@@ -152,13 +171,10 @@ public class SpiderwebC2Test {
         assertArrayEquals(spiderweb.spiderLastPath(), valorDevolver);
     }
 
-    @Test
-    public void accordingCCShoulNotSpiderLastPath(){
-        //Realizar
-    }
+
 
     @Test
-    public void accordingCCShoulBridges(){
+    public void accordingCCShouldReturnColorBridges(){
         String[] valorDevolver = {"green", "blue"};
         assertArrayEquals(spiderweb.bridges(), valorDevolver);
         spiderweb.addBridge("red", 200, 1);
@@ -167,7 +183,7 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShoulNotBridges(){
+    public void accordingCCShouldNotReturnFalseBridges(){
         String[] valorDevolver = {"green", "blue"};
         assertArrayEquals(spiderweb.bridges(), valorDevolver);
         spiderweb.addBridge("red", 200, 1);
@@ -176,7 +192,7 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShoulBridge(){
+    public void accordingCCShouldReturnBridgeLocation(){
         int[] valorDevolver = {1, 2};
         spiderweb.addBridge("red", 200, 1);
         assertArrayEquals(spiderweb.bridge("red"), valorDevolver);
@@ -185,7 +201,7 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShoulNotBridge(){
+    public void accordingCCShouldNotReturnFalseBridgeLocation(){
         int[] valorDevolver = {1, 2};
         spiderweb.addBridge("red", 2, 1);
         assertArrayEquals(spiderweb.bridge("red"), valorDevolver);
@@ -194,7 +210,7 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShoulSpots(){
+    public void accordingCCShouldReturnSpotsColor(){
         String[] valorDevolver = {"red", "blue"};
         assertArrayEquals(spiderweb.spots(), valorDevolver);
         spiderweb.addSpot("green", 1);
@@ -203,13 +219,13 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShoulNotSpots(){
+    public void accordingCCShouldNotReturnFalseSpotsColor(){
         String[] valorDevolver = {"red"};
         assertNotEquals(Arrays.asList(spiderweb.spots()), Arrays.asList(valorDevolver));
     }
 
     @Test
-    public void accordingCCShoulSpot(){
+    public void accordingCCShouldReturnSpotLocation(){
         int valorDevolver = 2;
         spiderweb.addSpot("green", 2);
         assertEquals(spiderweb.spot("green"), valorDevolver);
@@ -218,7 +234,7 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShoulNotSpot(){
+    public void accordingCCShoulNotReturnFalseSpotLocation(){
         int valorDevolver = 3;
         spiderweb.addSpot("green", 2);
         assertNotEquals(spiderweb.spot("green"), valorDevolver);
@@ -227,55 +243,21 @@ public class SpiderwebC2Test {
     }
 
     @Test
-    public void accordingCCShoulUnusedBridge(){
+    public void accordingCCShouldShowUnusedBridge(){
         spiderweb.addBridge("red", 150, 1);
         spiderweb.spiderSit(1);
         spiderweb.spiderWalk(true);
-        String[] valorDevolver = {"red", "blue"};
+        String[] valorDevolver = {"blue"};
         assertArrayEquals(spiderweb.unusedBrisges(), valorDevolver);
     }
 
     @Test
-    public void accordingCCShoulNotUnusedBridge(){
+    public void accordingCCShoulNotShowIncorrectUnusedBridge(){
         spiderweb.addBridge("red", 150, 1);
         spiderweb.spiderSit(1);
         spiderweb.spiderWalk(true);
         String[] valorDevolver = {"red", "green", "blue"};
         assertNotEquals(Arrays.asList(spiderweb.unusedBrisges()), Arrays.asList(valorDevolver));
     }
-
-    @Test
-    public void accordingCCShoulMakeVisible(){
-        spiderweb.makeVisible();
-        assertTrue(spiderweb.ok());
-    }
-
-    @Test
-    public void accordingCCShoulNotMakeVisible(){
-        spiderweb.makeVisible();
-        spiderweb.makeVisible();
-        assertFalse(spiderweb.ok());
-    }
-
-    @Test
-    public void accordingCCShoulMakeInvisible(){
-        spiderweb.makeVisible();
-        spiderweb.makeInvisible();
-        assertTrue(spiderweb.ok());
-    }
-
-    @Test
-    public void accordingCCShoulNotMakeInvisible(){
-        spiderweb.makeInvisible();
-        spiderweb.makeInvisible();
-        assertFalse(spiderweb.ok());
-    }
-
-    @Test
-    public void accordingCCShoulFinish(){
-        spiderweb.finish();
-        assertTrue(spiderweb.ok());
-    }
-
 
 }

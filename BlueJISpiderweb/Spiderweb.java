@@ -66,7 +66,7 @@ public class Spiderweb{
         this.puentesPorLineas = new HashMap<Integer,ArrayList<Bridge>>();
         spidertLastPath = new ArrayList<Integer>();
         this.spiderLastRoute = new ArrayList<Linea>();
-        spiderSit(favorite);
+        addSpot("blue",favorite);
         String[] colors = {"red","blue","green","yellow","black","white","orange"};
         for(int i = 0; i < bridges.length; i++){
             addBridge(colors[i],bridges[i][0],bridges[i][1]);
@@ -100,8 +100,8 @@ public class Spiderweb{
      */
     public void addStrand(){
         if((int)getDistanceCenterSpider() != 0){
-                spiderRetroceder();
-            }
+            spiderRetroceder();
+        }
         delRoute();
         double intervalo = 0;
         this.strands +=1;
@@ -114,6 +114,7 @@ public class Spiderweb{
         for(String color:bridges.keySet()){
             relocateBridge(color,bridges.get(color).get(0).getDistance());
         }
+        if(isVisible){makeInvisible(); makeVisible();}
         relocateSpots();
         isOk = true;
     }
@@ -130,10 +131,11 @@ public class Spiderweb{
     public String[] unusedBrisges(){
         ArrayList<String> noUsados = new ArrayList<>();
         for(String color : bridges.keySet()){
-            if(!bridges.get(color).get(0).isUsed()){
+            if(!(bridges.get(color).get(0).isUsed() || bridges.get(color).get(1).isUsed())){
                 noUsados.add(color);
             }
         }
+        isOk = true;
         return noUsados.toArray(new String[0]);
     }
 
@@ -144,11 +146,25 @@ public class Spiderweb{
      * @return An array of Strings representing the colors of the spots that can be reached.
      */
     public String[] reachablesSpots(){
-        ArrayList<String> noUsados = new ArrayList<>();
-        for(String color : spots.keySet()) {
-
+        ArrayList<String> alcanzable = new ArrayList<>();
+        if(strand == 0){
+            if(isVisible){JOptionPane.showMessageDialog(null, "Primero sienta la araña");}isOk = false;
+        }else{
+            spider.makeInvisible();
+            spiderWalk(true);
+            delRoute();
+            int pos = strand;
+            spiderWalk(false);
+            delRoute();
+            if(isVisible){spider.makeVisible();}
+            for(String color : spots.keySet()) {
+                if(spots.get(color).getStrand()==pos){
+                    alcanzable.add(color);
+                }break;
+            }
+            isOk=true;
         }
-        return noUsados.toArray(new String[0]);
+        return alcanzable.toArray(new String[0]);
     }
 
     /**
@@ -167,7 +183,11 @@ public class Spiderweb{
             this.radio = getDistance(centroImagenX, centroImagenY, listaThreads.get(0).getX2(),listaThreads.get(0).getY2());
             relocateSpots();
             isOk = true;
-            }
+        }
+        if(isVisible){
+            makeInvisible();
+            makeVisible();
+        }
     }
 
     /**
@@ -247,7 +267,12 @@ public class Spiderweb{
         float posy2 = Math.round(distance * Math.sin(Math.toRadians(angleSecondStrand)));
         Bridge bridge = new Bridge(centroImagenX+posx1,centroImagenY-posy1,centroImagenX+posx2,centroImagenY-posy2);
         bridge.changeColor(color);
+        if(isVisible){
+            bridge.makeVisible();
+        }
         bridge.setInitStrand(firstStrand);
+        bridge.setDirection("izq");
+        bridge.setDistance(distance);
         return bridge;
     }
 
@@ -268,6 +293,8 @@ public class Spiderweb{
         Bridge bridge = new Bridge(centroImagenX + posx2, centroImagenY - posy2, centroImagenX + posx1, centroImagenY - posy1);
         bridge.setInitStrand(firstStrand);
         bridge.changeColor(color);
+        bridge.setDirection("der");
+        bridge.setDistance(distance);
         return bridge;
     }     
     
@@ -281,27 +308,21 @@ public class Spiderweb{
         if(distance > radio || firstStrand > strands){
             if(isVisible){
                 JOptionPane.showMessageDialog(null, "Oops, algo salió mal, revisa las entradas");
-            }
-            isOk = false;
-            }else if(bridges.containsKey(color)){
-                if(isVisible){
-                    JOptionPane.showMessageDialog(null, "Ya existe un puente de dicho color");
-                }
-                isOk = false;
-            }else{
-                Bridge bridge = createBridge(firstStrand, distance, color);
-                Bridge bridge2 = createBridge2(firstStrand, distance, color);
-                addBridgeInStrand(bridge,firstStrand-1);
-                bridge.setDirection("izq");
-                bridge.setDistance(distance);
-                addBridgeInStrand(bridge2,firstStrand);
-                bridge2.setDirection("der");
-                bridge2.setDistance(distance);
-                ArrayList<Bridge> puente = new ArrayList<Bridge>();
-                puente.add(bridge);
-                puente.add(bridge2);
-                bridges.put(color,puente);
-                isOk = true;
+            }isOk = false;
+        }else if(bridges.containsKey(color)){
+            if(isVisible){
+                JOptionPane.showMessageDialog(null, "Ya existe un puente de dicho color");
+            }isOk = false;
+        }else{
+            Bridge bridge = createBridge(firstStrand, distance, color);
+            Bridge bridge2 = createBridge2(firstStrand, distance, color);
+            addBridgeInStrand(bridge,firstStrand-1);
+            addBridgeInStrand(bridge2,firstStrand);
+            ArrayList<Bridge> puente = new ArrayList<Bridge>();
+            puente.add(bridge);
+            puente.add(bridge2);
+            bridges.put(color,puente);
+            isOk = true;
             }
     }
 
@@ -411,7 +432,9 @@ public class Spiderweb{
             Hilo hilo = listaThreads.get(strand-1);
             Circle spot = new Circle((int)hilo.getX2(),(int)hilo.getY2());
             spot.changeColor(color);
-            //spot.makeVisible();
+            if(isVisible){
+                spot.makeInvisible();
+            }
             spot.setStrand(strand);
             spots.put(color,spot);
             isOk = true;
@@ -498,8 +521,8 @@ public class Spiderweb{
      */
     public void spiderWalk(boolean advance){
         if(strand == 0){
-            JOptionPane.showMessageDialog(null, "Primero debes sentar la araña en un hilo");
-            isOk = false;
+            if(isVisible){JOptionPane.showMessageDialog(null, "Primero debes sentar la araña en un hilo");
+            }isOk = false;
         }else if(advance){
             spiderWalk();
             isOk = true;
@@ -564,7 +587,7 @@ public class Spiderweb{
     /**
      * Delete the last route
      */
-    private void delRoute(){
+    public void delRoute(){
         invisibleRoute();
         spiderLastRoute.clear();
     }
@@ -578,7 +601,9 @@ public class Spiderweb{
         float Y  = listaThreads.get(hiloActual - 1).getY2() - spider.getPosy();
         addLastRoute(spider.getPosx(), spider.getPosy(), listaThreads.get(hiloActual-1).getX2(), listaThreads.get(hiloActual-1).getY2());
         spider.moveTo((int) X, (int) Y);
-        visibleRoute();
+        if(isVisible){
+            visibleRoute();
+        }
     }
 
     /**
@@ -594,7 +619,9 @@ public class Spiderweb{
         float Y2  = puenteCercano.getY2() - spider.getPosy();
         addLastRoute(spider.getPosx(),spider.getPosy(),puenteCercano.getX2(),puenteCercano.getY2());
         spider.moveTo((int)X2, (int)Y2);
-        visibleRoute();
+        if(isVisible){
+            visibleRoute();
+        }
         puenteCercano.use();
     }
 
@@ -628,7 +655,6 @@ public class Spiderweb{
         delRoute();
         int hiloActual = strand;
         while(!compararConMargenError(getDistanceCenterSpider(),radio,5)){
-            //spidertLastPath.add(strand);
             Bridge puenteCercano =findCLoserBridge(hiloActual-1);
             if(puenteCercano == null){
                 moveEsquina(hiloActual);
@@ -640,7 +666,6 @@ public class Spiderweb{
             }
         }
         this.strand = hiloActual;
-        //spidertLastPath.add(strand);
         isOk = true;
     }
 
@@ -672,7 +697,7 @@ public class Spiderweb{
         float Y  = centroImagenY - spider.getPosy();
         addLastRoute(spider.getPosx(),spider.getPosy(),centroImagenX,centroImagenY);
         spider.moveTo((int)X, (int)Y);
-        visibleRoute();
+        if(isVisible){visibleRoute();}
     }
 
     /**
@@ -695,13 +720,38 @@ public class Spiderweb{
     }
     
     /**
+     * search an int into a ArrayList
+     */
+    private boolean searchInt(ArrayList<Integer> arraylist, int entero) {
+        for (int elemento : arraylist) {
+            if (elemento == entero) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * del repite elements in a Arraylist
+     */
+    private ArrayList<Integer> deletingRepetive(ArrayList<Integer> list){
+        ArrayList<Integer> nuevo = new ArrayList<>();
+        for(int entero:list){
+            if(!searchInt(nuevo,entero)){
+                nuevo.add(entero);
+            }
+        }
+        return nuevo;
+    }
+    
+    /**
      * Return the last position of the spider
      * @return ArrayList with the x and y coordinates
      */
     public int[] spiderLastPath(){
-        spidertLastPathfin = new int[spidertLastPath.size()];
-        for (int i = 0; i < spidertLastPath.size(); i++) {
-            spidertLastPathfin[i] = spidertLastPath.get(i);
+        ArrayList<Integer> LastPath = deletingRepetive(spidertLastPath);
+        int[] spidertLastPathfin= new int[LastPath.size()];
+        for (int i = 0; i < LastPath.size(); i++) {
+            spidertLastPathfin[i] = LastPath.get(i);
         }
         return spidertLastPathfin;
     }
@@ -789,11 +839,7 @@ public class Spiderweb{
      * finish the simulator
      */
     public void finish(){
-         this.makeInvisible();
-         this.listaThreads = null;
-         this.spider = null;
-         this.bridges = null;
-         this.spots = null;
+         System.exit(0);
          isOk = true;
     }
     
