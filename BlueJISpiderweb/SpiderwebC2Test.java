@@ -1,5 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterEach;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -248,7 +248,7 @@ public class SpiderwebC2Test {
         spiderweb.spiderSit(1);
         spiderweb.spiderWalk(true);
         String[] valorDevolver = {"blue"};
-        assertArrayEquals(spiderweb.unusedBrisges(), valorDevolver);
+        assertArrayEquals(spiderweb.unusedBridges(), valorDevolver);
     }
 
     @Test
@@ -257,7 +257,7 @@ public class SpiderwebC2Test {
         spiderweb.spiderSit(1);
         spiderweb.spiderWalk(true);
         String[] valorDevolver = {"red", "green", "blue"};
-        assertNotEquals(Arrays.asList(spiderweb.unusedBrisges()), Arrays.asList(valorDevolver));
+        assertNotEquals(Arrays.asList(spiderweb.unusedBridges()), Arrays.asList(valorDevolver));
     }
 
 }

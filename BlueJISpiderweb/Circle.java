@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.awt.geom.*;
 
 /**
@@ -9,7 +8,6 @@ import java.awt.geom.*;
  */
 
 public class Circle{
-
     public static final double PI=3.1416;
     private int diameter;
     private int xPosition;

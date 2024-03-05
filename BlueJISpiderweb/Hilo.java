@@ -1,9 +1,5 @@
 import java.util.*;
 import javax.swing.JOptionPane;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * this class draws the initial web without bridges
@@ -47,7 +43,7 @@ public class Hilo{
      * @param newy2 The new y coordinate of the first end of the line.
      */
     public void newPoints(float newx2, float newy2){
-        this.thread.newPoints(newx2,newy2);
+        this.thread.newPoints(newx2, newy2);
     }
     
     /**
@@ -111,9 +107,9 @@ public class Hilo{
      * @param newSize A new percentage value
      */
     public void changeSize(int newSize){
-        float x2 = this.getX2()-Spiderweb.getPoscenterImage()[0] + (this.getX2()-Spiderweb.getPoscenterImage()[0])*(float)newSize/100;
-        float y2 = -(this.getY2()-Spiderweb.getPoscenterImage()[1]) -(this.getY2()-Spiderweb.getPoscenterImage()[1])*(float)newSize/100;
-        newPoints(getX1(),getY1(),x2+Spiderweb.getPoscenterImage()[0],Spiderweb.getPoscenterImage()[1]-y2);
+        float x2 = this.getX2()-Spiderweb.getPoscenterImage()[0] + (this.getX2()-Spiderweb.getPoscenterImage()[0]) * (float)newSize / 100;
+        float y2 = -(this.getY2()-Spiderweb.getPoscenterImage()[1]) - (this.getY2()-Spiderweb.getPoscenterImage()[1]) * (float)newSize / 100;
+        newPoints(getX1(),getY1(),x2 + Spiderweb.getPoscenterImage()[0],Spiderweb.getPoscenterImage()[1] - y2);
     }
     
 }
