@@ -77,9 +77,10 @@ public class Spiderweb{
         spidertLastPath = new ArrayList<Integer>();
         this.spiderLastRoute = new ArrayList<Linea>();
         addSpot("blue", favorite);
-        String[] colors = {"red", "blue", "green", "yellow", "black", "white", "orange"};
+        String[] colors = {"red", "blue", "green", "yellow", "black", "darkgray", "orange","magenta","cyan","gray","pink","lightGray"};
         for(int i = 0; i < bridges.length; i++){
-            addBridge(colors[i],bridges[i][0],bridges[i][1]);
+            int position = (bridges[i][0]*500)/15;
+            addBridge(colors[i],position,bridges[i][1]);
         }
     }
 
@@ -159,13 +160,12 @@ public class Spiderweb{
                 JOptionPane.showMessageDialog(null, "Primero sienta la araña");
             }
             isOk = false;
+        }else if((int)getDistanceCenterSpider() != 0){return  new String[] {};
         }else{
             spider.makeInvisible();
-            spiderWalk(true);
-            delRoute();
+            spiderWalk(true);delRoute();
             int pos = strand;
-            spiderWalk(false);
-            delRoute();
+            spiderWalk(false);delRoute();
             if(isVisible){spider.makeVisible();}
             for(String color : spots.keySet()) {
                 if(spots.get(color).getStrand()==pos){
