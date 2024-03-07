@@ -130,7 +130,7 @@ public class Canvas{
             graphic.setColor(Color.white);
         else if(colorString.equals("cyan"))
             graphic.setColor(Color.cyan);
-        else if(colorString.equals("darkGray"))
+        else if(colorString.equals("darkgray"))
             graphic.setColor(Color.darkGray);
         else if(colorString.equals("gray"))
             graphic.setColor(Color.gray);
@@ -138,8 +138,18 @@ public class Canvas{
             graphic.setColor(Color.orange);
         else if(colorString.equals("pink"))
             graphic.setColor(Color.pink);
-        else if(colorString.equals("lightGray"))
+        else if(colorString.equals("lightgray"))
             graphic.setColor(Color.lightGray);
+        else if(colorString.equals("brown"))
+            graphic.setColor(new Color(141,73,37));
+        else if(colorString.equals("purple"))
+            graphic.setColor(new Color(163,73,164));
+        else if(colorString.equals("turquoise"))
+            graphic.setColor(new Color(93,193,185));
+        else if(colorString.equals("salmon"))
+            graphic.setColor(new Color(250,128,114));
+        else if(colorString.equals("lilac"))
+            graphic.setColor(new Color(182,149,192));
         else
             graphic.setColor(Color.black);
     }

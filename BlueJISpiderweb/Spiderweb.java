@@ -77,7 +77,7 @@ public class Spiderweb{
         spidertLastPath = new ArrayList<Integer>();
         this.spiderLastRoute = new ArrayList<Linea>();
         addSpot("blue", favorite);
-        String[] colors = {"red", "blue", "green", "yellow", "black", "darkgray", "orange","magenta","cyan","gray","pink","lightGray"};
+        String[] colors = {"red", "blue", "green", "yellow", "black", "darkgray", "orange","magenta","cyan","gray","pink","lightgray","purple","brown","turquoise","lilac","salmon"};
         for(int i = 0; i < bridges.length; i++){
             int position = (bridges[i][0]*500)/15;
             addBridge(colors[i],position,bridges[i][1]);
@@ -366,15 +366,11 @@ public class Spiderweb{
     */
     public void relocateBridge(String color, int distance){
         if(distance > radio){
-            if(isVisible){
-                JOptionPane.showMessageDialog(null, "No se puede reubicar los puentes a una distancia mayor del limite de la araña");
-            }
-            isOk = false;
+            if(isVisible){JOptionPane.showMessageDialog(null, "No se puede reubicar los puentes a una distancia mayor del limite de la araña");
+            }isOk = false;
         }else if(!bridges.containsKey(color)){
-            if(isVisible){
-                JOptionPane.showMessageDialog(null, "No hay ningun puente con ese color");
-            }
-            isOk = false;
+            if(isVisible){JOptionPane.showMessageDialog(null, "No hay ningun puente con ese color");
+            }isOk = false;
         }else{
             for(Bridge bridge : bridges.get(color)){
                 double angleFirstStrand = (bridge.getInitStrand() - 1) * angulo;
@@ -597,7 +593,7 @@ public class Spiderweb{
     /**
      * Delete the last route
      */
-    public void delRoute(){
+    private void delRoute(){
         invisibleRoute();
         spiderLastRoute.clear();
     }
