@@ -26,7 +26,7 @@ public class Spiderweb{
     private final HashMap<String, ArrayList<Bridge>> bridges;
     private static final int CENTRO_IMAGEN_X = 640;
     private static final int CENTRO_IMAGEN_Y = 360;
-    private final HashMap<String, Circle> spots;
+    private final HashMap<String, Spot> spots;
     private boolean isOk = true;
     private final HashMap<Integer, ArrayList<Bridge>> puentesPorLineas;
     private final ArrayList<Integer> spidertLastPath;
@@ -48,7 +48,7 @@ public class Spiderweb{
         this.listaThreads = new ArrayList<Hilo>();
         newWeb();
         this.bridges = new HashMap<String, ArrayList<Bridge>>();
-        this.spots = new HashMap<String, Circle>();
+        this.spots = new HashMap<String, Spot>();
         this.spider = new Spider();
         spider.moveTo(Spiderweb.getPosCenterImage()[0] - spider.getPosx(), Spiderweb.getPosCenterImage()[1] - spider.getPosy());
         this.puentesPorLineas = new HashMap<Integer, ArrayList<Bridge>>();
@@ -70,7 +70,7 @@ public class Spiderweb{
         this.listaThreads = new ArrayList<Hilo>();
         newWeb();
         this.bridges = new HashMap<String, ArrayList<Bridge>>();
-        this.spots = new HashMap<String, Circle>();
+        this.spots = new HashMap<String, Spot>();
         this.spider = new Spider();
         spider.moveTo(Spiderweb.getPosCenterImage()[0] - spider.getPosx(), Spiderweb.getPosCenterImage()[1] - spider.getPosy());
         this.puentesPorLineas = new HashMap<Integer, ArrayList<Bridge>>();
@@ -217,7 +217,7 @@ public class Spiderweb{
      * Relocates spots when their radius is modified
      */
     private void relocateSpots() {
-        for (Circle spot : spots.values()) {
+        for (Spot spot : spots.values()) {
             int strandi = spot.getStrand() - 1;
             Hilo hilo = listaThreads.get(strandi);
             spot.relocate((int) hilo.getX2(), (int) hilo.getY2());
@@ -462,10 +462,10 @@ public class Spiderweb{
             isOk = false;
         } else {
             Hilo hilo = listaThreads.get(strand - 1);
-            Circle spot = new Circle((int) hilo.getX2(), (int) hilo.getY2());
+            Spot spot = new Spot((int) hilo.getX2(), (int) hilo.getY2());
             spot.changeColor(color);
             if (isVisible) {
-                spot.makeInvisible();
+                spot.makeVisible();
             }
             spot.setStrand(strand);
             spots.put(color, spot);
@@ -869,7 +869,7 @@ public class Spiderweb{
             isOk = false;
             return -1;
         } else {
-            Circle lugar = spots.get(color);
+            Spot lugar = spots.get(color);
             int numStrands = lugar.getStrand();
             isOk = true;
             return numStrands;
