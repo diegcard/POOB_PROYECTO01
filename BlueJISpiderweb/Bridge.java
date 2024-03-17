@@ -16,8 +16,11 @@ public class Bridge{
     /**
      * Constructor for objects of class Bridge
      */
-    public Bridge(float x1, float y1,float x2, float y2){
+    public Bridge(float x1, float y1,float x2, float y2, int FistStrand, int Distance, String direction){
         this.bridge = new Linea(x1,y1,x2,y2);
+        setDistance(Distance);
+        setInitStrand(FistStrand);
+        setDirection(direction);
     }
 
     /**

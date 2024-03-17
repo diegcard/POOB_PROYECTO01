@@ -66,22 +66,24 @@ public class Spiderweb{
     public Spiderweb(int strands, int favorite, int[][] bridges) {
         this.strands = strands;
         this.angulo = (double) 360 / strands;
-        this.radio = 500;
+        this.radio = 350;
         this.listaThreads = new ArrayList<Hilo>();
         newWeb();
         this.bridges = new HashMap<String, ArrayList<Bridge>>();
         this.spots = new HashMap<String, Spot>();
         this.spider = new Spider();
+        spider.changeSize(-50);
         spider.moveTo(Spiderweb.getPosCenterImage()[0] - spider.getPosx(), Spiderweb.getPosCenterImage()[1] - spider.getPosy());
         this.puentesPorLineas = new HashMap<Integer, ArrayList<Bridge>>();
         spidertLastPath = new ArrayList<Integer>();
         this.spiderLastRoute = new ArrayList<Linea>();
         addSpot("blue", favorite);
         String[] colors = {"red", "blue", "green", "yellow", "black", "darkgray", "orange", "magenta",
-                "cyan", "gray", "pink", "lightgray", "purple", "brown", "turquoise", "lilac", "salmon"};
+                "cyan", "gray","#14936136","#18217172","#122202184","#15194115","#5522195","#117176131","#8420971",
+                "#14121414","#24024029","#2509532","#1006253","#2558751","pink", "lightgray", "purple", "brown", "turquoise", "lilac", "salmon"};
         for (int i = 0; i < bridges.length; i++) {
-            int position = (bridges[i][0] * 500) / 15;
-            addBridge(colors[i], position, bridges[i][1]);
+            double position = (double)(bridges[i][0] * radio) / 23;
+            addBridge(colors[i], (int)position, bridges[i][1]);
         }
     }
 
@@ -285,14 +287,11 @@ public class Spiderweb{
         float posy1 = Math.round(distance * Math.sin(Math.toRadians(angleFirstStrand)));
         float posx2 = Math.round(distance * Math.cos(Math.toRadians(angleSecondStrand)));
         float posy2 = Math.round(distance * Math.sin(Math.toRadians(angleSecondStrand)));
-        Bridge bridge = new Bridge(CENTRO_IMAGEN_X + posx1, CENTRO_IMAGEN_Y - posy1, CENTRO_IMAGEN_X + posx2, CENTRO_IMAGEN_Y - posy2);
+        Bridge bridge = new Bridge(CENTRO_IMAGEN_X + posx1, CENTRO_IMAGEN_Y - posy1, CENTRO_IMAGEN_X + posx2, CENTRO_IMAGEN_Y - posy2,firstStrand,distance,"izq");
         bridge.changeColor(color);
         if (isVisible) {
             bridge.makeVisible();
         }
-        bridge.setInitStrand(firstStrand);
-        bridge.setDirection("izq");
-        bridge.setDistance(distance);
         return bridge;
     }
 
@@ -311,11 +310,8 @@ public class Spiderweb{
         float posy1 = Math.round(distance * Math.sin(Math.toRadians(angleFirstStrand)));
         float posx2 = Math.round(distance * Math.cos(Math.toRadians(angleSecondStrand)));
         float posy2 = Math.round(distance * Math.sin(Math.toRadians(angleSecondStrand)));
-        Bridge bridge = new Bridge(CENTRO_IMAGEN_X + posx2, CENTRO_IMAGEN_Y - posy2, CENTRO_IMAGEN_X + posx1, CENTRO_IMAGEN_Y - posy1);
-        bridge.setInitStrand(firstStrand);
+        Bridge bridge = new Bridge(CENTRO_IMAGEN_X + posx2, CENTRO_IMAGEN_Y - posy2, CENTRO_IMAGEN_X + posx1, CENTRO_IMAGEN_Y - posy1,firstStrand,distance,"der");
         bridge.changeColor(color);
-        bridge.setDirection("der");
-        bridge.setDistance(distance);
         return bridge;
     }
 
@@ -462,12 +458,11 @@ public class Spiderweb{
             isOk = false;
         } else {
             Hilo hilo = listaThreads.get(strand - 1);
-            Spot spot = new Spot((int) hilo.getX2(), (int) hilo.getY2());
+            Spot spot = new Spot((int) hilo.getX2(), (int) hilo.getY2(), strand);
             spot.changeColor(color);
             if (isVisible) {
                 spot.makeVisible();
             }
-            spot.setStrand(strand);
             spots.put(color, spot);
             isOk = true;
         }
@@ -753,6 +748,7 @@ public class Spiderweb{
                 hiloActual = strandActual(puenteCercano, hiloActual);
             }
         }
+        delRoute();
         isOk = true;
     }
 
@@ -920,5 +916,9 @@ public class Spiderweb{
      */
     public int getRadio() {
         return (int) radio;
+    }
+    
+    public HashMap<Integer, ArrayList<Bridge>> getPuentesPorLineas(){
+        return puentesPorLineas;
     }
 }

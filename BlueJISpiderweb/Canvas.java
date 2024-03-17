@@ -148,8 +148,30 @@ public class Canvas{
             graphic.setColor(new Color(93,193,185));
         else if(colorString.equals("salmon"))
             graphic.setColor(new Color(250,128,114));
-        else if(colorString.equals("lilac"))
-            graphic.setColor(new Color(182,149,192));
+        else if(colorString.equals("#2558751"))
+            graphic.setColor(new Color(255,87,51));
+        else if(colorString.equals("#1006253"))
+            graphic.setColor(new Color(100,62,53));
+        else if(colorString.equals("#2509532"))
+            graphic.setColor(new Color(250,95,32));
+        else if(colorString.equals("#24024029"))
+            graphic.setColor(new Color(240,240,29));
+        else if(colorString.equals("#14121414"))
+            graphic.setColor(new Color(141,214,14));
+        else if(colorString.equals("#8420971"))
+            graphic.setColor(new Color(84,209,71));
+        else if(colorString.equals("#117176131"))
+            graphic.setColor(new Color(117,176,131));
+        else if(colorString.equals("#5522195"))
+            graphic.setColor(new Color(55,221,95));
+        else if(colorString.equals("#15194115"))
+            graphic.setColor(new Color(15,194,115));
+        else if(colorString.equals("#122202184"))
+            graphic.setColor(new Color(122,202,184));
+        else if(colorString.equals("#18217172"))
+            graphic.setColor(new Color(18,217,172));
+        else if(colorString.equals("#14936136"))
+            graphic.setColor(new Color(149,36,136));
         else
             graphic.setColor(Color.black);
     }

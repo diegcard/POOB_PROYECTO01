@@ -16,8 +16,9 @@ public class Spot {
      * @param xPos x position
      * @param yPos y position
      */
-    public Spot(int xPos, int yPos) {
+    public Spot(int xPos, int yPos, int strand) {
         this.spot = new Circle(xPos, yPos);
+        setStrand(strand);
     }
 
     /**
