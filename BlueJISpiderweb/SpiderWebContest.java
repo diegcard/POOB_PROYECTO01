@@ -86,7 +86,8 @@ public class SpiderWebContest{
     private void ordenarMatrizPorPrimerElemento(int[][] matriz) {
         Arrays.sort(matriz, Comparator.comparingInt(a -> a[0]));
     }
-    
+
+    // ordenar la matriz de mayor a menor respecto al primer elemento
     private void ordenarMatrizPorPrimerElementoDeMayorAMenor(ArrayList<int[]> matriz) {
         matriz.sort((a, b) -> b[0] - a[0]);
     }
@@ -211,7 +212,14 @@ public class SpiderWebContest{
             modify(hiloSiguiente, n, 1, n, 1, lval + n, 1);
         }
     }
-    
+
+    /**
+     * solve the problem of the Spider Walk using segement tree
+     * @param strands
+     * @param favorite
+     * @param bridges
+     * @return a array with the solution of the problem
+     */
     public int[] solve(int strands, int favorite, int[][] bridges){
         if (this.s != favorite){
             setFavorite(favorite);
@@ -234,7 +242,14 @@ public class SpiderWebContest{
         spiderweb.delSpot("blue");
         spiderweb.addSpot("blue", newFavorite);
     }
-    
+
+    /**
+     * simulate the problem of the Spider Walk for a specific start strand
+     * @param strands
+     * @param favorite
+     * @param bridges
+     * @param strand
+     */
     public void simulate(int strands, int favorite, int[][] bridges, int strand){
         if (this.s != favorite){
             setFavorite(favorite);
@@ -258,7 +273,15 @@ public class SpiderWebContest{
             }
         }
     }
-    
+
+    /**
+     * simulate the problem of the Spider Walk for all the strands, so the spider start to sit in the first
+     * strand, create the new bridges and walk to the favorite strand, then the spider return to the center
+     * and delete the bridges that it created, then the spider start to sit in the second strand and do the same
+     * @param strands
+     * @param favorite
+     * @param bridges
+     */
     public void simulate(int strands, int favorite, int[][] bridges){
         if(isVisible){
             spiderweb.makeVisible();
@@ -268,7 +291,8 @@ public class SpiderWebContest{
             //posiblePositions(bridges);
         }
     }
-    
+
+    //convertir un arreglo a un ArrayList
     private ArrayList<int[]> arrayToArrayList(int[][] bridge){
         ArrayList<int[]> arrayList = new ArrayList<>();
         for (int[] element : bridge) {
@@ -310,8 +334,6 @@ public class SpiderWebContest{
         }
         return pasoAPaso;
     }
-    
-    // añadir los puentes mínimos en increciente
     
     //añadir a posNewBridges los nuevos puentes que se van poniendo una posición adelante 
     /*private void addAndSortInPosNewBridges( ArrayList<int[]> newBridges){
