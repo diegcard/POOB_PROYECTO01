@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=BouncySpot
+comment0.text=\r\n\ If\ the\ spider\ reaches\ this\ spot,\ it\ jumps\ to\ the\ next\ thread\r\n\ \r\n\ @author\ Cardenas-Cardona\r\n\ @version\ 1.0\r\n
+comment1.params=xPos\ yPos\ strand\ color
+comment1.target=BouncySpot(int,\ int,\ int,\ java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ BouncySpot\r\n
+numComments=2

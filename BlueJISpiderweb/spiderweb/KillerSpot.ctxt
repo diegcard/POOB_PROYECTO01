@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=KillerSpot
+comment0.text=\r\nIf\ the\ spider\ reaches\ this\ spot,\ eliminate\ it\r\n\r\n
+comment1.params=xPos\ yPos\ strand\ color
+comment1.target=KillerSpot(int,\ int,\ int,\ java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ KillerSpot\r\n
+numComments=2
