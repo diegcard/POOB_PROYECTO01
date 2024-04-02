@@ -200,7 +200,7 @@ public class spiderwebC4test{
         spiderweb.addSpot("bouncy","orange", 4);
         spiderweb.spiderSit(1);
         spiderweb.spiderWalk(true);
-        assertEquals(spiderweb.getCurrentStrand(),5);
+        assertEquals(spiderweb.getCurrentStrand(),2);
     }
     
     @Test

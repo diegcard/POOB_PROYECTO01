@@ -608,6 +608,11 @@ public class Spiderweb{
             if (isVisible) JOptionPane.showMessageDialog(null, "No puedes sentar la araña en un hilo inexistente");
             isOk = false;
         } else {
+            if(spider == null){
+                spider = new Spider();
+                spider.moveTo(Spiderweb.getPosCenterImage()[0] - spider.getPosx(), Spiderweb.getPosCenterImage()[1] - spider.getPosy());
+                if(isVisible) spider.makeVisible();
+            }
             if ((int) getDistanceCenterSpider() != 0) {
                 spiderRetroceder();
             }
@@ -629,7 +634,7 @@ public class Spiderweb{
         } else if (advance) {
             spiderWalk();
             Spot spot = getSpot(strand);
-            recursiveEffectSpots(spot);
+            effectSpots(spot);
             isOk = true;
         } else {
             spiderRetroceder();
@@ -640,13 +645,11 @@ public class Spiderweb{
     /**
      * a recursive method that allows rpetive the bouncy effect
      */
-    private void recursiveEffectSpots(Spot spot){
+    private void effectSpots(Spot spot){
         if(spot instanceof BouncySpot){
             Hilo hilo = listaThreads.get(strand % strands);
             spider.moveTo((int) hilo.getX2() - spider.getPosx(), (int) hilo.getY2() - spider.getPosy());
             this.strand = (strand % strands) +1;
-            Spot spot1 = getSpot(strand);
-            recursiveEffectSpots(spot1);
         }else if(spot instanceof KillerSpot){
             spider.makeInvisible();
             spider = null;
@@ -757,7 +760,7 @@ public class Spiderweb{
             int distance = puenteCercano.getDistance()+((puenteCercano.getDistance()*20)/100);
             if(!(distance> radio || adyacentBridges(distance,firstStrand))){
                 delBridge(colorPuenteCercano);
-                addBridge("mobile",colorPuenteCercano,distance,firstStrand);
+                addBridge("normal",colorPuenteCercano,distance,firstStrand);
             }else addLastRoute(puenteCercano.getX1(), puenteCercano.getY1(), puenteCercano.getX2(), puenteCercano.getY2());
         }else{
             addLastRoute(puenteCercano.getX1(), puenteCercano.getY1(), puenteCercano.getX2(), puenteCercano.getY2());
