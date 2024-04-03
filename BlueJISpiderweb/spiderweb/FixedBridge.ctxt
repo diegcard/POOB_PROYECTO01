@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=FixedBridge
-comment0.text=\r\n\ This\ is\ an\ extension\ of\ a\ bridge,\ and\ it\ is\ the\ fixed\ bridge,\r\n\ this\ bridge\ once\ placed\ cannot\ be\ removed\r\n\ \r\n\ \ @author\ Cardenas-Cardona\r\n\ @version\ 1.0\r\n
-comment1.params=x1\ y1\ x2\ y2\ FistStrand\ Distance\ direction\ color
-comment1.target=FixedBridge(float,\ float,\ float,\ float,\ int,\ int,\ java.lang.String,\ java.lang.String)
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ FixedBridge\r\n
-numComments=2

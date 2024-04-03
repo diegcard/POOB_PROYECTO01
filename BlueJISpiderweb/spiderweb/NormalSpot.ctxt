@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=NormalSpot
-comment0.text=\r\n\ This\ is\ an\ extension\ of\ a\ bridge,\ and\ it\ is\ the\ normal\ bridge,\r\n\ that\ is,\ it\ behaves\ like\ a\ bridge\r\n\ \r\n\ @author\ Cardenas-Cardona\r\n\ @version\ 1.0\r\n
-comment1.params=xPos\ yPos\ strand\ color
-comment1.target=NormalSpot(int,\ int,\ int,\ java.lang.String)
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ NormalSpot\r\n
-numComments=2
