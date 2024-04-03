@@ -216,7 +216,22 @@ public class spiderwebC4test{
         assertTrue(spiderweb.ok());
     }
     
-    //Depende de lo que la profe dija si se elimna el spot o la araña
+    @Test
+    public void ShouldKillerSpotsDeleteTheSpider() {
+        spiderweb.addSpot("killer","green",1);
+        spiderweb.spiderSit(1);
+        spiderweb.spiderWalk(true);
+        assertNull(spiderweb.getSpider());
+    }
+    
+    @Test
+    public void ShouldSpiderSitAppearTheSpider() {
+        spiderweb.addSpot("killer","green",1);
+        spiderweb.spiderSit(1);
+        spiderweb.spiderWalk(true);
+        spiderweb.spiderSit(2);
+        assertNotNull(spiderweb.getSpider());
+    }
     
     @Test
     public void ShouldAcceptInsertColorsSpots() {

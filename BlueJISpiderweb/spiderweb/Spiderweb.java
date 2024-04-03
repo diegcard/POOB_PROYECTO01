@@ -1067,4 +1067,11 @@ public class Spiderweb{
     public String getSpiderColor() {
         return spider.getColor();
     }
+    
+    /**
+     * gets spider 
+     */
+    public Spider getSpider() {
+        return spider;
+    }
 }
