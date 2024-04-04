@@ -1,12 +1,8 @@
 package test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spiderweb.*;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * The test class SpiderwebC4Test.
@@ -14,7 +10,7 @@ import java.util.List;
  * @author Diego Cardenas - Sebastian Cardona
  * @version 1.0 - 02/03/2024
  */
-public class spiderwebC4test{
+public class spiderwebc4Test {
     
     private final Spiderweb spiderweb = new Spiderweb(7, 500);
     @Test
@@ -104,7 +100,7 @@ public class spiderwebC4test{
         spiderweb.addBridge("transformer","green", 100, 2);
         spiderweb.delBridge("green");
         int spot = spiderweb.spot("green");
-        assertEquals(4,spot);;
+        assertEquals(4,spot);
     }
     
     @Test

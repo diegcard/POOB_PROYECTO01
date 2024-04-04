@@ -4,7 +4,7 @@ import shapes.*;
 import java.util.*;
 
 /**
- * Representa una araña con componentes específicos como cabeza, cuerpo y patas.
+ * Representa una araña con componentes specificness como cabeza, cuerpo y patas.
  * Permite mover, hacer visible e invisible la araña, así como cambiar su tamaño.
  * Además, inicializa y posiciona los componentes de la araña.
  *
@@ -13,8 +13,8 @@ import java.util.*;
  */
 public class Spider {
 
-    private final Circle cabeza;
-    private final Circle cuerpo;
+    private final Circle head;
+    private final Circle body;
     private final ArrayList<Linea> patas;
     private boolean isVisible = false;
     private String color;
@@ -24,9 +24,9 @@ public class Spider {
      * Init the new Spider with its all components
      */
     public Spider() {
-        this.cabeza = new Circle();
-        this.cuerpo = new Circle();
-        this.patas = new ArrayList<Linea>();
+        this.head = new Circle();
+        this.body = new Circle();
+        this.patas = new ArrayList<>();
         initDrawSpider();
     }
 
@@ -36,7 +36,7 @@ public class Spider {
      * @return x coordenate
      */
     public int getPosx() {
-        return cuerpo.getxPosition() + cuerpo.getDiameter() / 2;
+        return body.getxPosition() + body.getDiameter() / 2;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Spider {
      * @return y coordenate
      */
     public int getPosy() {
-        return cuerpo.getyPosition() + cuerpo.getDiameter() / 2;
+        return body.getyPosition() + body.getDiameter() / 2;
     }
 
     /**
@@ -54,8 +54,8 @@ public class Spider {
      */
     private void initDrawSpider() {
         reorPatas();
-        cuerpo.changeColor("red");
-        cabeza.changeColor("red");
+        body.changeColor("red");
+        head.changeColor("red");
         reordenarCabeza();
     }
 
@@ -75,23 +75,23 @@ public class Spider {
      * Each leg is represented by a Linea object and is added to the patas ArrayList.
      */
     private void reorPatasDelanteras() {
-        Linea pata1 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter() / 2), (cuerpo.getyPosition() + cuerpo.getDiameter() / 2),
-                cuerpo.getxPosition() + cuerpo.getDiameter() - cabeza.getDiameter() / 6, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4);
+        Linea pata1 = new Linea((body.getxPosition() + (float) body.getDiameter() / 2), (body.getyPosition() + (float) body.getDiameter() / 2),
+                body.getxPosition() + body.getDiameter() - (float) head.getDiameter() / 6, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 4);
         patas.add(pata1);
-        Linea pata2 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter() / 2), (cuerpo.getyPosition() + cuerpo.getDiameter() / 2),
-                cuerpo.getxPosition() + cabeza.getDiameter() / 6, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4);
+        Linea pata2 = new Linea((body.getxPosition() + (float) body.getDiameter() / 2), (body.getyPosition() + (float) body.getDiameter() / 2),
+                body.getxPosition() + (float) head.getDiameter() / 6, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 4);
         patas.add(pata2);
-        Linea pata3 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter() / 2), (cuerpo.getyPosition() + cuerpo.getDiameter() / 2),
-                cuerpo.getxPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 6, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 20);
+        Linea pata3 = new Linea((body.getxPosition() + (float) body.getDiameter() / 2), (body.getyPosition() + (float) body.getDiameter() / 2),
+                body.getxPosition() + body.getDiameter() + (float) head.getDiameter() / 6, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 20);
         patas.add(pata3);
-        Linea pata4 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter() / 2), (cuerpo.getyPosition() + cuerpo.getDiameter() / 2),
-                cuerpo.getxPosition() - cabeza.getDiameter() / 6, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 20);
+        Linea pata4 = new Linea((body.getxPosition() + (float) body.getDiameter() / 2), (body.getyPosition() + (float) body.getDiameter() / 2),
+                body.getxPosition() - (float) head.getDiameter() / 6, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 20);
         patas.add(pata4);
-        Linea pata31 = new Linea(cuerpo.getxPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 6, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 20,
-                cuerpo.getxPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 10, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4);
+        Linea pata31 = new Linea(body.getxPosition() + body.getDiameter() + (float) head.getDiameter() / 6, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 20,
+                body.getxPosition() + body.getDiameter() + (float) head.getDiameter() / 10, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 4);
         patas.add(pata31);
-        Linea pata41 = new Linea(cuerpo.getxPosition() - cabeza.getDiameter() / 6, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 20,
-                cuerpo.getxPosition() - cabeza.getDiameter() / 10, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4);
+        Linea pata41 = new Linea(body.getxPosition() - (float) head.getDiameter() / 6, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 20,
+                body.getxPosition() - (float) head.getDiameter() / 10, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 4);
         patas.add(pata41);
     }
 
@@ -101,28 +101,28 @@ public class Spider {
      * Each leg is represented by a Linea object and is added to the patas ArrayList.
      */
     private void reorPatasTraseras() {
-        Linea pata5 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter() / 2), (cuerpo.getyPosition() + cuerpo.getDiameter() / 2),
-                cuerpo.getxPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4, cuerpo.getyPosition() + cuerpo.getDiameter() / 2 - cabeza.getDiameter() / 8);
-        Linea pata6 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter() / 2), (cuerpo.getyPosition() + cuerpo.getDiameter() / 2),
-                cuerpo.getxPosition() - cabeza.getDiameter() / 4, cuerpo.getyPosition() + cuerpo.getDiameter() / 2 - cabeza.getDiameter() / 8);
+        Linea pata5 = new Linea((body.getxPosition() + (float) body.getDiameter() / 2), (body.getyPosition() + (float) body.getDiameter() / 2),
+                body.getxPosition() + body.getDiameter() + (float) head.getDiameter() / 4, body.getyPosition() + (float) body.getDiameter() / 2 - (float) head.getDiameter() / 8);
+        Linea pata6 = new Linea((body.getxPosition() + (float) body.getDiameter() / 2), (body.getyPosition() + (float) body.getDiameter() / 2),
+                body.getxPosition() - (float) head.getDiameter() / 4, body.getyPosition() + (float) body.getDiameter() / 2 - (float) head.getDiameter() / 8);
         patas.add(pata5);
         patas.add(pata6);
-        Linea pata51 = new Linea(cuerpo.getxPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4, cuerpo.getyPosition() + cuerpo.getDiameter() / 2 - cabeza.getDiameter() / 8,
-                cuerpo.getxPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 2, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4);
-        Linea pata61 = new Linea(cuerpo.getxPosition() - cabeza.getDiameter() / 4, cuerpo.getyPosition() + cuerpo.getDiameter() / 2 - cabeza.getDiameter() / 8,
-                cuerpo.getxPosition() - cabeza.getDiameter() / 2, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4);
+        Linea pata51 = new Linea(body.getxPosition() + body.getDiameter() + (float) head.getDiameter() / 4, body.getyPosition() + (float) body.getDiameter() / 2 - (float) head.getDiameter() / 8,
+                body.getxPosition() + body.getDiameter() + (float) head.getDiameter() / 2, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 4);
+        Linea pata61 = new Linea(body.getxPosition() - (float) head.getDiameter() / 4, body.getyPosition() + (float) body.getDiameter() / 2 - (float) head.getDiameter() / 8,
+                body.getxPosition() - (float) head.getDiameter() / 2, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 4);
         patas.add(pata51);
         patas.add(pata61);
-        Linea pata7 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter() / 2), (cuerpo.getyPosition() + cuerpo.getDiameter() / 2),
-                cuerpo.getxPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 2, cuerpo.getyPosition() + cuerpo.getDiameter() / 4);
-        Linea pata8 = new Linea((cuerpo.getxPosition() + cuerpo.getDiameter() / 2), (cuerpo.getyPosition() + cuerpo.getDiameter() / 2),
-                cuerpo.getxPosition() - cabeza.getDiameter() / 2, cuerpo.getyPosition() + cuerpo.getDiameter() / 4);
+        Linea pata7 = new Linea((body.getxPosition() + (float) body.getDiameter() / 2), (body.getyPosition() + (float) body.getDiameter() / 2),
+                body.getxPosition() + body.getDiameter() + (float) head.getDiameter() / 2, body.getyPosition() + (float) body.getDiameter() / 4);
+        Linea pata8 = new Linea((body.getxPosition() + (float) body.getDiameter() / 2), (body.getyPosition() + (float) body.getDiameter() / 2),
+                body.getxPosition() - (float) head.getDiameter() / 2, body.getyPosition() + (float) body.getDiameter() / 4);
         patas.add(pata7);
         patas.add(pata8);
-        Linea pata71 = new Linea(cuerpo.getxPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 2, cuerpo.getyPosition() + cuerpo.getDiameter() / 4,
-                cuerpo.getxPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 3, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4);
-        Linea pata81 = new Linea(cuerpo.getxPosition() - cabeza.getDiameter() / 2, cuerpo.getyPosition() + cuerpo.getDiameter() / 4,
-                cuerpo.getxPosition() - cabeza.getDiameter() / 3, cuerpo.getyPosition() + cuerpo.getDiameter() + cabeza.getDiameter() / 4);
+        Linea pata71 = new Linea(body.getxPosition() + body.getDiameter() + (float) head.getDiameter() / 2, body.getyPosition() + (float) body.getDiameter() / 4,
+                body.getxPosition() + body.getDiameter() + (float) head.getDiameter() / 3, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 4);
+        Linea pata81 = new Linea(body.getxPosition() - (float) head.getDiameter() / 2, body.getyPosition() + (float) body.getDiameter() / 4,
+                body.getxPosition() - (float) head.getDiameter() / 3, body.getyPosition() + body.getDiameter() + (float) head.getDiameter() / 4);
         patas.add(pata71);
         patas.add(pata81);
     }
@@ -132,9 +132,9 @@ public class Spider {
      * This method repositions the head of the spider based on the current position and size of the spider's body.
      */
     private void reordenarCabeza() {
-        cabeza.changeSize(cuerpo.getDiameter() / 3);
-        cabeza.moveHorizontal(cuerpo.getxPosition() + cuerpo.getDiameter() / 2 - cabeza.getDiameter() / 2 - cabeza.getxPosition());
-        cabeza.moveVertical(cuerpo.getyPosition() + cuerpo.getDiameter() - cabeza.getDiameter() / 2 - cabeza.getyPosition());
+        head.changeSize(body.getDiameter() / 3);
+        head.moveHorizontal(body.getxPosition() + body.getDiameter() / 2 - head.getDiameter() / 2 - head.getxPosition());
+        head.moveVertical(body.getyPosition() + body.getDiameter() - head.getDiameter() / 2 - head.getyPosition());
     }
 
     /**
@@ -158,10 +158,10 @@ public class Spider {
      */
     public void moveTo(int x, int y) {
         movePatas(x, y);
-        cuerpo.moveHorizontal(x);
-        cuerpo.moveVertical(y);
-        cabeza.moveHorizontal(x);
-        cabeza.moveVertical(y);
+        body.moveHorizontal(x);
+        body.moveVertical(y);
+        head.moveHorizontal(x);
+        head.moveVertical(y);
     }
 
     /**
@@ -170,8 +170,8 @@ public class Spider {
     public void makeVisible() {
         if (!isVisible) {
             patas.forEach(Linea::makeVisible);
-            cuerpo.makeVisible();
-            cabeza.makeVisible();
+            body.makeVisible();
+            head.makeVisible();
             isVisible = true;
         }
     }
@@ -182,8 +182,8 @@ public class Spider {
     public void makeInvisible() {
         if (isVisible) {
             patas.forEach(Linea::makeInvisible);
-            cuerpo.makeInvisible();
-            cabeza.makeInvisible();
+            body.makeInvisible();
+            head.makeInvisible();
             isVisible = false;
         }
     }
@@ -194,29 +194,29 @@ public class Spider {
      * @param newSize new size
      */
     public void changeSize(int newSize) {
-        cuerpo.changeSize((int) (cuerpo.getDiameter() + cuerpo.getDiameter() * ((float) newSize / 100)));
-        cabeza.changeSize((int) (cabeza.getDiameter() + cabeza.getDiameter() * ((float) newSize / 100)));
+        body.changeSize((int) (body.getDiameter() + body.getDiameter() * ((float) newSize / 100)));
+        head.changeSize((int) (head.getDiameter() + head.getDiameter() * ((float) newSize / 100)));
         patas.forEach(Linea::makeInvisible);
         reorPatas();
         if (isVisible) {
             patas.forEach(Linea::makeVisible);
         }
-        cuerpo.changeColor("red");
+        body.changeColor("red");
         reordenarCabeza();
     }
 
     /**
-     * Change spider's head color to indicate when the spider is sit
+     * Change spider's head color to indicate when the spider is sat
      */
     public void headChangeColor(String newColor) {
-        cabeza.changeColor(newColor);
+        head.changeColor(newColor);
     }
     
     /**
      * Change spider's body color 
      */
     public void bodyChangeColor(String newColor) {
-        cuerpo.changeColor(newColor);
+        body.changeColor(newColor);
         this.color = newColor;
     }
     

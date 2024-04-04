@@ -10,8 +10,8 @@ public class Spot {
     private final Circle spot;
     private boolean isVisible = false;
     private int Strand;
-    private String color;
-    private Circle identificador;
+    private final String color;
+    private final Circle identificador;
 
     /**
      * Constructor for objects of class Spot
@@ -21,8 +21,8 @@ public class Spot {
      */
     public Spot(int xPos, int yPos, int strand, String color) {
         this.spot = new Circle(xPos, yPos);
-        this.identificador = new Circle((int)xPos,(int)yPos,5);
-        identificador.relocate((int) (xPos+spot.getDiameter()/2-identificador.getDiameter()/2),(int) (yPos+spot.getDiameter()/2-identificador.getDiameter()/2));
+        this.identificador = new Circle(xPos,yPos,5);
+        identificador.relocate((xPos+spot.getDiameter()/2-identificador.getDiameter()/2),(yPos+spot.getDiameter()/2-identificador.getDiameter()/2));
         setStrand(strand);
         this.color = color;
         spot.changeColor(color);
@@ -90,7 +90,7 @@ public class Spot {
     /**
      * This method is used to get the Color of the spot.
      *
-     * @return int This returns the y positionthe color of the spot.
+     * @return int This returns the y position the color of the spot.
      */
     public String getColor() {
         return color;
@@ -120,6 +120,6 @@ public class Spot {
      */
     public void relocate(int xPos, int yPos) {
         spot.relocate(xPos, yPos);
-        identificador.relocate((int) (xPos+spot.getDiameter()/2-identificador.getDiameter()/2),(int) (yPos+spot.getDiameter()/2-identificador.getDiameter()/2));
+        identificador.relocate((xPos+spot.getDiameter()/2-identificador.getDiameter()/2),(yPos+spot.getDiameter()/2-identificador.getDiameter()/2));
     }
 }

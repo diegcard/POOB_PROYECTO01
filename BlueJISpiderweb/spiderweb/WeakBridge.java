@@ -8,6 +8,7 @@ package spiderweb;
  * @version 1.0
  */
 public class WeakBridge extends Bridge{
+
     /**
      * Constructor for objects of class WeakBridge
      */

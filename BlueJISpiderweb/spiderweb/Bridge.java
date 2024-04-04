@@ -7,14 +7,14 @@ import shapes.*;
  * @version 1.0
  */
 public class Bridge{
-    private Linea bridge;
-    private Circle identificador;
+    private final Linea bridge;
+    private final Circle identificador;
     private boolean isVisible = false;
     private int initStrand;
     private String direction;
     private int distance;
     private boolean used;
-    private String color;
+    private final String color;
 
     /**
      * Constructor for objects of class Bridge
@@ -32,7 +32,7 @@ public class Bridge{
     }
 
     /**
-     * Checks if the briddge is currently in use
+     * Checks if the bridge is currently in use
      *
      * @return true if the bridge is in use, false otherwise
      */
@@ -189,7 +189,7 @@ public class Bridge{
     /**
      * gets the Bridge Color
      * 
-     * @return the currently bridge color
+     * @return the current bridge color
      */
     public String getColor(){
         return color;

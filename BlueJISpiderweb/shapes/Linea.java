@@ -30,8 +30,8 @@ public class Linea {
     public Linea(float x2, float y2) {
         color = "black";
         isVisible = false;
-        this.x1 = Spiderweb.getPosCenterImage()[0]; //initial value
-        this.y1 = Spiderweb.getPosCenterImage()[1]; //initial value
+        this.x1 = Spiderweb.getPosCenterImage()[0];
+        this.y1 = Spiderweb.getPosCenterImage()[1];
         this.x2 = x1 + x2;
         this.y2 = y1 - y2;
     }
@@ -164,7 +164,7 @@ public class Linea {
     }
 
     /**
-     * Mueve la línea horizontalmente por la cantidad especificada.
+     * Mueve la línea mentalization por la cantidad especificada.
      *
      * @param distancia La distancia a mover la línea horizontalmente.
      */

@@ -7,7 +7,7 @@ import shapes.*;
  * @version 1.0
  */
 public class Hilo {
-    private Linea thread;
+    private final Linea thread;
     private boolean isVisible = false;
 
     /**

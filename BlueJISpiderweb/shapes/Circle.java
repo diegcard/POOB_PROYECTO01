@@ -98,9 +98,8 @@ public class Circle {
     }
 
     /**
-     * return the color of the circle
+     * make the circle visible.
      *
-     * @return the color
      */
     public void makeVisible() {
         isVisible = true;
@@ -108,7 +107,7 @@ public class Circle {
     }
 
     /**
-     * Make this Circle invisible. If it was already invisible, do nothing.
+     * Make this Circle invisible.
      */
     public void makeInvisible() {
         erase();
