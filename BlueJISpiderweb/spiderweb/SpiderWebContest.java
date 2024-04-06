@@ -15,61 +15,40 @@ class Node {
  * @version 1.0
  */
 public class SpiderWebContest {
-    private final Spiderweb spiderweb;
+    private static Spiderweb spiderweb;
     //private ArrayList<Integer> posNewBridges;
-    private final int numBridges;
+    private static int numBridges;
     private static final int N = 200005;
     // INF es la distancia máxima que hay desde el centro de la telaraña hasta el extremo de un hilo
     private static final int INF = (int) 1e9;
     // seg es el segment tree que se va a usar para guardar los valores de los nodos
     private static final Node[] seg = new Node[N * 4];
     // n es el número de hilos, s es el hilo favorito de la araña
-    private int s;
-    private int n;
-    private final String[] colors = {"salmon", "lilac", "turquoise", "brown", "purple", "lightgray", "pink",
+    private static int s;
+    private static int n;
+    private static final String[] colors = {"salmon", "lilac", "turquoise", "brown", "purple", "lightgray", "pink",
             "#2558751", "#1006253", "#2509532", "#24024029", "#14121414", "#8420971", "#117176131",
             "#5522195", "#15194115", "#122202184", "#18217172", "#14936136", "gray", "cyan", "magenta", "orange", "darkgray", "black",
             "yellow", "green", "blue", "red"};
-    public boolean isOk;
-    private final boolean isVisible = false;
-
-    /**
-     * Constructor for objects of class SpiderWebContest
-     * this class have the solution of the Spider Walk problem and its simulation
-     *
-     * @param strands  the total of strands
-     * @param favorite the favorite strand of the spider to sleep
-     * @param bridges  the current bridges of the simulation
-     */
-    public SpiderWebContest(int strands, int favorite, int[][] bridges) {
-        this.spiderweb = new Spiderweb(strands, favorite, bridges);
-        isOk = spiderweb.ok();
-        this.n = strands;
-        this.s = favorite;
-        ordenarMatrizPorPrimerElemento(bridges);
-        //posiblePositions(bridges);
-        this.numBridges = bridges.length;
-        for (int i = 0; i < N * 4; i++) {
-            seg[i] = new Node();
-        }
-        build(1, n, 1);
-    }
-
+    private static boolean isVisible = false;
+    public static boolean isOk;
     /**
      * make the simulation visible
      */
-    public void makeVisible() {
+    private static void makeVisible() {
         if (!isVisible) {
             spiderweb.makeVisible();
+            isVisible = true;
         }
     }
 
     /**
      * make the simulation visible
      */
-    public void makeInvisible() {
+    private static void makeInvisible() {
         if (isVisible) {
             spiderweb.makeInvisible();
+            isVisible = false;
         }
     }
 
@@ -87,24 +66,24 @@ public class SpiderWebContest {
     }*/
 
     // ordenar la matriz de menor a mayor respecto al primer elemento
-    private void ordenarMatrizPorPrimerElemento(int[][] matriz) {
+    private static void ordenarMatrizPorPrimerElemento(int[][] matriz) {
         Arrays.sort(matriz, Comparator.comparingInt(a -> a[0]));
     }
 
     // ordenar la matriz de mayor a menor respecto al primer elemento
-    private void ordenarMatrizPorPrimerElementoDeMayorAMenor(ArrayList<int[]> matriz) {
+    private static void ordenarMatrizPorPrimerElementoDeMayorAMenor(ArrayList<int[]> matriz) {
         matriz.sort((a, b) -> b[0] - a[0]);
     }
 
     //updateMin es una funcion que se usa para actualizar el valor de un nodo
     //del segment tree por el minimo entre el actual y el valor que se le pasa
-    private int updateMin(int x, int val) {
+    private static int updateMin(int x, int val) {
         return Math.min(x, val);
     }
 
     //down es una funcion que se usa para propagar los valores de los nodos del
     //segment tree hacia sus hijos cuando se hace un update en un nodo
-    private void down(int l, int r, int nodoActual) {
+    private static void down(int l, int r, int nodoActual) {
         int mid = (l + r) / 2;
         if (seg[nodoActual].min_dec != INF) {
             seg[nodoActual * 2].min_dec = updateMin(seg[nodoActual * 2].min_dec, seg[nodoActual].min_dec);
@@ -122,7 +101,7 @@ public class SpiderWebContest {
     //valores iniciales de los nodos hoja que son los hilos de la telaraña
     //en los nodos hoja, min_dec y min_inc son la distancia minima de 
     //un hilo a s sin puentes inicialmente
-    private void build(int l, int r, int nodoActual) {
+    private static void build(int l, int r, int nodoActual) {
         seg[nodoActual].min_dec = INF;
         seg[nodoActual].min_inc = INF;
         if (l == r) {
@@ -136,7 +115,7 @@ public class SpiderWebContest {
 
     //modify es una funcion que se usa para modificar los valores de los nodos del segment tree
     //en un rango determinado con un valor determinado
-    private void modify(int L, int R, int l, int r, int nodoActual, int v, int type) {
+    private static void modify(int L, int R, int l, int r, int nodoActual, int v, int type) {
         // si el rango que se esta viendo esta completamente dentro del rango que se quiere modificar se modifica el valor del nodo
         if (L <= l && R >= r) {
             if (type == 1)
@@ -162,7 +141,7 @@ public class SpiderWebContest {
     }
 
     //La función smodify se utiliza para modificar el valor de un solo nodo en el árbol de segmentos
-    private void smodify(int x, int l, int r, int nodoActual, int v) {
+    private static void smodify(int x, int l, int r, int nodoActual, int v) {
         // si el nodo que se quiere modificar es una hoja se le asigna el valor v
         if (l == r) {
             seg[nodoActual].min_dec = seg[nodoActual].min_inc = v;
@@ -181,7 +160,7 @@ public class SpiderWebContest {
 
     //La función query se utiliza para hacer una consulta en el árbol de segmentos y
     //obtener el valor minimo de un nodo en un rango determinado
-    private int query(int x, int l, int r, int nodoActual) {
+    private static int query(int x, int l, int r, int nodoActual) {
         // si el rango que se esta viendo es igual al nodo que se quiere consultar se retorna el valor minimo del nodo
         if (l == r) return Math.min(seg[nodoActual].min_dec, seg[nodoActual].min_inc);
         // se llama a la funcion down para propagar los valores de los nodos hacia sus hijos
@@ -194,7 +173,7 @@ public class SpiderWebContest {
     }
 
     // modifica el arbol de segmentos con los puentes
-    private void segWithBridges(ArrayList<int[]> bridges) {
+    private static void segWithBridges(ArrayList<int[]> bridges) {
         for (int[] pair : bridges) {
             // se calcula el hilo inicial y el hilo siguiente
             int hiloInicial = pair[1], hiloSiguiente = pair[1] % n + 1;
@@ -225,11 +204,16 @@ public class SpiderWebContest {
      * @param bridges  bridges
      * @return an array with the solution of the problem
      */
-    public int[] solve(int strands, int favorite, int[][] bridges) {
-        if (this.s != favorite) {
-            setFavorite(favorite);
+    public static int[] solve(int strands, int favorite, int[][] bridges) {
+        //spiderweb = new Spiderweb(strands, favorite, bridges);
+        s = favorite;
+        n = strands;
+        //ordenarMatrizPorPrimerElemento(bridges);
+        numBridges = bridges.length;
+        for (int i = 0; i < N * 4; i++) {
+            seg[i] = new Node();
         }
-        this.n = strands;
+        //build(1, n, 1);
         ArrayList<int[]> bridges1 = arrayToArrayList(bridges);
         ordenarMatrizPorPrimerElementoDeMayorAMenor(bridges1);
         build(1, n, 1);
@@ -241,12 +225,6 @@ public class SpiderWebContest {
         return solution;
     }
 
-    //establecer un nuevo favorite strand
-    private void setFavorite(int newFavorite) {
-        this.s = newFavorite;
-        spiderweb.delSpot("blue");
-        spiderweb.addSpot("blue", newFavorite);
-    }
 
     /**
      * simulate the problem of the Spider Walk for a specific start strand
@@ -256,10 +234,7 @@ public class SpiderWebContest {
      * @param bridges  bridges
      * @param strand   start strand
      */
-    public void simulate(int strands, int favorite, int[][] bridges, int strand) {
-        if (this.s != favorite) {
-            setFavorite(favorite);
-        }
+    private static void simulate(int strands, int favorite, int[][] bridges, int strand) {
         ArrayList<int[]> bridges1 = arrayToArrayList(bridges);
         ArrayList<int[]> newBridges = addBridgeWithDeterminateThreadStart(strand, bridges1, strands);
         if (newBridges != null) {
@@ -289,18 +264,26 @@ public class SpiderWebContest {
      * @param favorite favorite strand
      * @param bridges  bridges
      */
-    public void simulate(int strands, int favorite, int[][] bridges) {
-        if (isVisible) {
-            spiderweb.makeVisible();
+    public static void simulate(int strands, int favorite, int[][] bridges) {
+        if(spiderweb != null) makeInvisible();
+        spiderweb = new Spiderweb(strands, favorite, bridges);
+        isOk = spiderweb.ok();
+        makeVisible();
+        s = favorite;
+        n = strands;
+        ordenarMatrizPorPrimerElemento(bridges);
+        numBridges = bridges.length;
+        for (int i = 0; i < N * 4; i++) {
+            seg[i] = new Node();
         }
+        build(1, n, 1);
         for (int i = 1; i <= n; i++) {
             simulate(strands, favorite, bridges, i);
-            //posiblePositions(bridges);
         }
     }
 
     //convertir un arreglo a un ArrayList
-    private ArrayList<int[]> arrayToArrayList(int[][] bridge) {
+    private static ArrayList<int[]> arrayToArrayList(int[][] bridge) {
         ArrayList<int[]> arrayList = new ArrayList<>();
         for (int[] element : bridge) {
             arrayList.add(element);
@@ -309,13 +292,13 @@ public class SpiderWebContest {
     }
 
     //determina si el camino que debe hacer desde determinado strand es creciente o increciente
-    private boolean determinateThreadStart(int initStrand, ArrayList<int[]> bridges, int distance) {
+    private static boolean determinateThreadStart(int initStrand, ArrayList<int[]> bridges, int distance) {
         return distance == seg[initStrand].min_inc;
 
     }
 
     //hacer el arreglo paso apaso para saber sobre que strands iterar en el proceso de añadir en Dec
-    private ArrayList<Integer> pasoAPasocreatePasoAPasoDec(int initStrand, int strands) {
+    private static ArrayList<Integer> pasoAPasocreatePasoAPasoDec(int initStrand, int strands) {
         ArrayList<Integer> pasoAPaso = new ArrayList<>();
         for (int inicio = initStrand; inicio >= 1; inicio--) {
             pasoAPaso.add(inicio);
@@ -327,7 +310,7 @@ public class SpiderWebContest {
     }
 
     //hacer el arreglo pasoApaso para saber sobre que strands iterar en el proceso de añadir en Inc
-    private ArrayList<Integer> pasoAPasocreatePasoAPasoInc(int initStrand, int strands) {
+    private static ArrayList<Integer> pasoAPasocreatePasoAPasoInc(int initStrand, int strands) {
         ArrayList<Integer> pasoAPaso = new ArrayList<>();
         for (int inicio = initStrand; inicio <= strands; inicio++) {
             pasoAPaso.add(inicio);
@@ -350,7 +333,7 @@ public class SpiderWebContest {
     }*/
 
     // itera sobre todos los posibles lugares para poner los puentes por cada strand
-    private ArrayList<int[]> iterador(ArrayList<Integer> pasoAPaso, ArrayList<int[]> newBridges, int distance, int initStrand, ArrayList<int[]> bridges) {
+    private static ArrayList<int[]> iterador(ArrayList<Integer> pasoAPaso, ArrayList<int[]> newBridges, int distance, int initStrand, ArrayList<int[]> bridges) {
         for (int strand : pasoAPaso) {
             for (int posible = 1; posible <= 22; posible++) { //itera sobre las posiciones posibles para añadir puentes
                 // revisa que entre los puentes no se cree uno contiguo
@@ -378,7 +361,7 @@ public class SpiderWebContest {
 
     // busca los puentes que hay que añadir para que desde un hilo dado
     // llegue hasta el spot y devuelve un arrayList con esos nuevos puentes
-    private ArrayList<int[]> addBridgeWithDeterminateThreadStart(int initStrand, ArrayList<int[]> bridges, int strands) {
+    private static ArrayList<int[]> addBridgeWithDeterminateThreadStart(int initStrand, ArrayList<int[]> bridges, int strands) {
         ArrayList<int[]> newBridges = new ArrayList<>();
         int m = bridges.size(), n = strands;
         build(1, n, 1);
@@ -400,7 +383,7 @@ public class SpiderWebContest {
     }
 
     // mira si hay un puente adyacente al que quiero poner o si lo estoy sobreponiendo
-    private boolean adyacentBridges(int position, int strand) {
+    private static boolean adyacentBridges(int position, int strand) {
         int next = (strand % n) + 1;
         boolean verificador = false;
         HashMap<Integer, ArrayList<Bridge>> puentesPorLinea = spiderweb.getPuentesPorLineas();
@@ -424,7 +407,7 @@ public class SpiderWebContest {
     }
 
     // dado una lista de puentes, verifica si el nuevo puente a colocar tiene un adyacente de la lista dada
-    private boolean adyacentBridgeswithDeterminateBridges(ArrayList<int[]> newBridges, int position, int strand) {
+    private static boolean adyacentBridgeswithDeterminateBridges(ArrayList<int[]> newBridges, int position, int strand) {
         int strand0next = (strand % n) + 1;
         boolean verificador = false;
         if (!newBridges.isEmpty()) {
@@ -442,17 +425,10 @@ public class SpiderWebContest {
     }
 
     //This method is used to compare two numbers with a margin of error.
-    private boolean compararConMargenError(double numero1, double numero2) {
+    private static boolean compararConMargenError(double numero1, double numero2) {
         return Math.abs(numero1 - numero2) <= 7;
     }
 
-    /**
-     * finish the simulator
-     */
-    public void finish() {
-        System.exit(0);
-        isOk = true;
-    }
 }
 
 
