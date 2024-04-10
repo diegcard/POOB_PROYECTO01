@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81ad6666-9208-4717-b500-09b88342e0fe" name="Changes" comment="ciclo 3 con documentacion">
-      <change beforePath="$PROJECT_DIR$/spiderweb/SpiderWebContest.java" beforeDir="false" afterPath="$PROJECT_DIR$/spiderweb/SpiderWebContest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bluej.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/bluej.pkg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/package.bluej" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shapes/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/shapes/package.bluej" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spiderweb/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/spiderweb/package.bluej" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/test/package.bluej" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/usuario/Desktop/Universidad/Sexto Semestre/POOB/Proyecto 1 y 2 corte",
+    "last_opened_file_path": "C:/Users/usuario/Desktop/Universidad/Sexto Semestre/POOB/Proyecto 1 y 2 corte/BlueJISpiderweb/spiderweb",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,6 +60,21 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="BlueJISpiderweb" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="BlueJISpiderweb" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -88,6 +107,7 @@
       <workItem from="1711750797619" duration="21939000" />
       <workItem from="1711851926675" duration="107000" />
       <workItem from="1712371195434" duration="94000" />
+      <workItem from="1712781065079" duration="66000" />
     </task>
     <task id="LOCAL-00001" summary="ciclo 3 con documentacion">
       <option name="closed" value="true" />

@@ -637,6 +637,8 @@ public class Spiderweb{
             Hilo hilo = listaThreads.get(strand % strands);
             spider.moveTo((int) hilo.getX2() - spider.getPosx(), (int) hilo.getY2() - spider.getPosy());
             this.strand = (strand % strands) +1;
+            spot = getSpot(strand);
+            effectSpots(spot);
         }else if(spot instanceof KillerSpot){
             spider.makeInvisible();
             spider = null;
