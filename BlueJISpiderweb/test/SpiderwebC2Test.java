@@ -10,7 +10,8 @@ import java.util.List;
 /**
  * The test class SpiderwebC2Test.
  *
- * @author Diego Cardenas - Sebastian Cardona
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0 - 02/03/2024
  */
 public class SpiderwebC2Test {

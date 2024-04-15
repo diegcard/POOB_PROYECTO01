@@ -2,6 +2,15 @@ package spiderweb;
 
 import java.util.*;
 
+/**
+ * This class is to resolve the problem of the Spider Walk and
+ * simulate its solution
+ *
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
+ * @version 1.0
+ */
+
 class Node {
     public int min_dec, min_inc;
 }
@@ -11,7 +20,8 @@ class Node {
  * This class is to resolve the problem of the Spider Walk and
  * simulate its solution
  *
- * @author Sebastian Cardona - Diego Cardenas
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class SpiderWebContest {

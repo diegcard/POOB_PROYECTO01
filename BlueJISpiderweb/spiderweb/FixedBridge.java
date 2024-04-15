@@ -4,11 +4,13 @@ package spiderweb;
 /**
  * This is an extension of a bridge, and it is the fixed bridge,
  * this bridge once placed cannot be removed
- * 
- *  @author Cardenas-Cardona
+ *
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class FixedBridge extends Bridge{
+
     /**
      * Constructor for objects of class FixedBridge
      */

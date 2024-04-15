@@ -1,9 +1,12 @@
 package spiderweb;
+
 import shapes.*;
+
 /**
  * This class maintains the main characteristics of a spider web bridge
- * 
- * @author Cardenas-Cardona
+ *
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class Bridge{

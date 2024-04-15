@@ -1,9 +1,10 @@
 package spiderweb;
 import shapes.*;
 /**
- * this class draws the initial web without bridges
+ * This class draws the initial web without bridges
  *
- * @author Cardenas-Cardona
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class Hilo {

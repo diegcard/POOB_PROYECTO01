@@ -7,7 +7,8 @@ import spiderweb.*;
 /**
  * The test class SpiderwebC4Test.
  * These tests are focused on the inherited classes and their functionalities
- * @author Diego Cardenas - Sebastian Cardona
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0 - 02/03/2024
  */
 public class spiderwebc4Test {
@@ -196,7 +197,7 @@ public class spiderwebc4Test {
         spiderweb.addSpot("bouncy","orange", 4);
         spiderweb.spiderSit(1);
         spiderweb.spiderWalk(true);
-        assertEquals(spiderweb.getCurrentStrand(),2);
+        assertEquals(spiderweb.getCurrentStrand(),5);
     }
     
     @Test

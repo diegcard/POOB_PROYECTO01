@@ -3,7 +3,8 @@ import shapes.*;
 /**
  * This class is used to create a spot object. The spot object is used to represent a spot on the spider web.
  *
- * @author Cardenas-Cardona
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0 - 02/03/2024
  */
 public class Spot {

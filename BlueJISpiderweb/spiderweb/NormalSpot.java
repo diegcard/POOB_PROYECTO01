@@ -4,8 +4,9 @@ package spiderweb;
 /**
  * This is an extension of a bridge, and it is the normal bridge,
  * that is, it behaves like a bridge
- * 
- * @author Cardenas-Cardona
+ *
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class NormalSpot extends Spot{

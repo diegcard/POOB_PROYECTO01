@@ -8,7 +8,8 @@ import java.util.*;
  * Permite mover, hacer visible e invisible la araña, así como cambiar su tamaño.
  * Además, inicializa y posiciona los componentes de la araña.
  *
- * @author Diego Cárdenas y Sebastián Cardona
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class Spider {

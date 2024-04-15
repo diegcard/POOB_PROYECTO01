@@ -14,7 +14,8 @@ import shapes.*;
  * La clase también incluye métodos para mostrar y ocultar la telaraña y sus componentes.
  * La clase se utiliza para simular una araña que se mueve a lo largo de una telaraña, cruzando puentes y descansando en puntos de inicio.
  *
- * @author Diego Cardenas y Sebastian Cardona
+ * @author Diego Cardenas
+ * @author Sebastian Cardona
  * @version 1.2
  */
 public class Spiderweb{

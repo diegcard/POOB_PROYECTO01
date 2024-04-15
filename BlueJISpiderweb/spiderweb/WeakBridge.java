@@ -1,10 +1,10 @@
 package spiderweb;
 
-
 /**
- * this bridge is removed if the spider passes over it
+ * This bridge is removed if the spider passes over it
  * 
- * @author Cardenas-Cardona
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class WeakBridge extends Bridge{

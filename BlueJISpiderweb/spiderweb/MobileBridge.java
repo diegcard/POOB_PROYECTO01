@@ -3,8 +3,9 @@ package spiderweb;
 
 /**
  * If possible, when the spider passes over this bridge, it moves to the next thread and to a 20% greater distance.
- * 
- * @author Cardenas-Cardona
+ *
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class MobileBridge extends Bridge{

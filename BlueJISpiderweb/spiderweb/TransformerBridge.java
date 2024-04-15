@@ -5,7 +5,8 @@ package spiderweb;
  * This bridge, by eliminating it if possible, becomes a spot
  * in the same FirstStrand
  * 
- * @author Cardenas-Cardona
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class TransformerBridge extends Bridge{

@@ -3,9 +3,10 @@ package spiderweb;
 
 /**
  * Write a description of class ReturnerColorSpot here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ *
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
+ * @version 1.0
  */
 public class ColorSpot extends Spot{
     

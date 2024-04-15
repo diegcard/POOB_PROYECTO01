@@ -1,10 +1,10 @@
 package spiderweb;
 
-
 /**
  * If the spider reaches this spot, it jumps to the next thread
  * 
- * @author Cardenas-Cardona
+ * @author Sebastian Cardona
+ * @author Diego Cardenas
  * @version 1.0
  */
 public class BouncySpot extends Spot{
