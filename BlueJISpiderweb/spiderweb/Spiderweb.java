@@ -592,7 +592,7 @@ public class Spiderweb{
      * @param strand the thread where the spider will start
      */
     public void spiderSit(int strand) {
-        if (strand > strands) {
+        if (strand > strands && strand >= 0) {
             if (isVisible) JOptionPane.showMessageDialog(null, "No puedes sentar la araña en un hilo inexistente");
             isOk = false;
         } else {
